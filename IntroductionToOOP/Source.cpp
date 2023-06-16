@@ -32,7 +32,7 @@ public: // реализация сетторов и геттеров
 	}
 };
 
-double distance(Point a, Point b);
+double Distance(Point a, Point b);
 
 //#define STRUCT_POINT
 
@@ -70,10 +70,10 @@ void main()
 	cout << "Координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
 	cout << "Расстояние до точки 'А': " << A.distance() << endl;
 	cout << "Расстояние до точки 'В': " << B.distance() << endl;
-	cout << "Расстояние между точками: " << distance(A, B) << endl;
+	cout << "Расстояние между точками: " << Distance(A, B) << endl;
 }
 
-double distance(Point a, Point b)
+double Distance(Point a, Point b)
 {
 	return b.distance() - a.distance();
 }
