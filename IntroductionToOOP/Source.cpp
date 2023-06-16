@@ -53,15 +53,19 @@ void main()
 	cout << pA->x << "\t" << pA->y << endl; //Обращение к полю по адресу
 #endif 
 	//Использование гетеров и сетеров
-	double dot_x, dot_y;
+	double dot;
 	Point A;
 	Point B;
-	cout << "Введите координаты точки 'А': "; cin >> dot_x >> dot_y;
-	A.set_x(dot_x);
-	A.set_y(dot_y);
-	cout << "Введите координаты точки 'В': "; cin >> dot_x >> dot_y;
-	B.set_x(dot_x);
-	B.set_y(dot_y);
+	cout << "Введите координаты точки 'А': "; 
+	cin >> dot;
+	A.set_x(dot); 
+	cin >> dot;
+	A.set_y(dot);
+	cout << "Введите координаты точки 'В': ";
+	cin >> dot;
+	B.set_x(dot); 
+	cin >> dot;
+	B.set_y(dot);	
 	cout << "Координаты точки 'А': (" << A.get_x() << ", " << A.get_y() << ")" << endl;
 	cout << "Координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
 	cout << "Расстояние до точки 'А': " << A.distance() << endl;
