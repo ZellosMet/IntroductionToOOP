@@ -28,6 +28,10 @@ public: // реализация сетторов и геттеров
 	{
 		return sqrt(x * x + y * y);
 	}
+	double distancePointToPoint(Point b)const
+	{
+		return sqrt((b.get_x() - x) * (b.get_x() - x) + (b.get_y() - y) * (b.get_y() - y)); //???
+	}
 };
 
 double Distance(Point a, Point b);
@@ -67,10 +71,13 @@ void main()
 	cout << "Расстояние до точки 'А': " << A.distance() << endl;
 	cout << "Расстояние до точки 'В': " << B.distance() << endl;
 	cout << "Расстояние между точками: " << Distance(A, B) << endl;
+	cout << "Расстояние между точками методом класса: " << A.distancePointToPoint(B) << endl;
 #endif
 }
 
 double Distance(Point a, Point b)
 {
+	if (b.distance() - a.distance()>0)
 	return b.distance() - a.distance();
+	return -(b.distance() - a.distance());
 }
