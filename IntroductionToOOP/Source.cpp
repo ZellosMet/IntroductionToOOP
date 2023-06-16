@@ -35,6 +35,7 @@ public: // реализация сетторов и геттеров
 double Distance(Point a, Point b);
 
 //#define STRUCT_POINT
+#define HOME_WORK
 
 void main()
 {
@@ -52,7 +53,9 @@ void main()
 
 	cout << pA->x << "\t" << pA->y << endl; //Обращение к полю по адресу
 #endif 
-	//Использование гетеров и сетеров
+#ifdef HOME_WORK
+
+
 	double dot;
 	Point A;
 	Point B;
@@ -71,6 +74,7 @@ void main()
 	cout << "Расстояние до точки 'А': " << A.distance() << endl;
 	cout << "Расстояние до точки 'В': " << B.distance() << endl;
 	cout << "Расстояние между точками: " << Distance(A, B) << endl;
+#endif
 }
 
 double Distance(Point a, Point b)
