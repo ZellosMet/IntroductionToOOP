@@ -1,5 +1,8 @@
 ﻿#include<iostream>
+#include<math.h>
+
 using namespace std;
+
 
 class Point //создание структуры
 {
@@ -23,7 +26,13 @@ public: // реализация сетторов и геттеров
 	{
 		this->y = y;
 	}
+	double distance(double x, double y)const
+	{
+		return sqrt(x * x + y * y);
+	}
 };
+
+double distance(Point a, Point b);
 
 //#define STRUCT_POINT
 
@@ -44,10 +53,23 @@ void main()
 	cout << pA->x << "\t" << pA->y << endl; //Обращение к полю по адресу
 #endif 
 	//Использование гетеров и сетеров
+	double dot_x, dot_y;
 	Point A;
-	cout << A.get_x() << "\t" << A.get_y() << endl;
-	A.set_x(2);
-	A.set_y(3);
-	cout << A.get_x() << "\t" << A.get_y() << endl;
+	Point B;
+	cout << "Введите координаты точки 'А': "; cin >> dot_x >> dot_y;
+	A.set_x(dot_x);
+	A.set_y(dot_y);
+	cout << "Введите координаты точки 'В': "; cin >> dot_x >> dot_y;
+	B.set_x(dot_x);
+	B.set_y(dot_y);
+	cout << "Координаты точки 'А': (" << A.get_x() << ", " << A.get_y() << ")" << endl;
+	cout << "Координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
+	cout << "Расстояние до точки 'А': " << A.distance(A.get_x(), A.get_y()) << endl;
+	cout << "Расстояние до точки 'В': " << B.distance(B.get_x(), B.get_y()) << endl;
+	cout << "Расстояние между точками: " << distance(A, B) << endl;
+}
 
+double distance(Point a, Point b)
+{
+	return sqrt((b.get_x() - a.get_x()) * (b.get_x() - a.get_x()) + (b.get_y() - a.get_y()) * (b.get_y() - a.get_y()));
 }
