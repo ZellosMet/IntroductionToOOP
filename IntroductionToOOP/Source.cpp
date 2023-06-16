@@ -1,8 +1,6 @@
 ﻿#include<iostream>
 #include<math.h>
-
 using namespace std;
-
 
 class Point //создание структуры
 {
@@ -43,19 +41,14 @@ void main()
 
 #ifdef STRUCT_POINT
 	Point A; //Создание объекта
-
 	A.x = 2;
 	A.y = 3;
-
 	cout << A.x << "\t" << A.y << endl; //Обращение к полю по имени
-
 	Point *pA = &A;
-
 	cout << pA->x << "\t" << pA->y << endl; //Обращение к полю по адресу
 #endif 
+
 #ifdef HOME_WORK
-
-
 	double dot;
 	Point A;
 	Point B;
