@@ -1,12 +1,12 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
-class Point //создание структуры
+class Point //СЃРѕР·РґР°РЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹
 {
 	double x;
 	double y;
 
-public: // реализация сетторов и геттеров
+public: // СЂРµР°Р»РёР·Р°С†РёСЏ СЃРµС‚С‚РѕСЂРѕРІ Рё РіРµС‚С‚РµСЂРѕРІ
 	double get_x()const
 	{
 		return x;
@@ -17,7 +17,7 @@ public: // реализация сетторов и геттеров
 	}
 	void set_x(double x)
 	{
-		this->x = x; // this указывает на член класса для которого вызывается сетер
+		this->x = x; // this СѓРєР°Р·С‹РІР°РµС‚ РЅР° С‡Р»РµРЅ РєР»Р°СЃСЃР° РґР»СЏ РєРѕС‚РѕСЂРѕРіРѕ РІС‹Р·С‹РІР°РµС‚СЃСЏ СЃРµС‚РµСЂ
 	}
 	void set_y(double y)
 	{
@@ -32,16 +32,16 @@ void main()
 	setlocale(LC_ALL, "ru");
 
 #ifdef STRUCT_POINT
-	Point A; //Создание объекта
+	Point A; //РЎРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚Р°
 
 	A.x = 2;
 	A.y = 3;
 
-	cout << A.x << "\t" << A.y << endl; //Обращение к полю по имени
+	cout << A.x << "\t" << A.y << endl; //РћР±СЂР°С‰РµРЅРёРµ Рє РїРѕР»СЋ РїРѕ РёРјРµРЅРё
 
 	Point *pA = &A;
 
-	cout << pA->x << "\t" << pA->y << endl; //Обращение к полю по адресу
+	cout << pA->x << "\t" << pA->y << endl; //РћР±СЂР°С‰РµРЅРёРµ Рє РїРѕР»СЋ РїРѕ Р°РґСЂРµСЃСѓ
 #endif 
 
 	Point A;
