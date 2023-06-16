@@ -26,7 +26,7 @@ public: // реализация сетторов и геттеров
 	{
 		this->y = y;
 	}
-	double distance(double x, double y)const
+	double distance()const
 	{
 		return sqrt(x * x + y * y);
 	}
@@ -64,12 +64,12 @@ void main()
 	B.set_y(dot_y);
 	cout << "Координаты точки 'А': (" << A.get_x() << ", " << A.get_y() << ")" << endl;
 	cout << "Координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
-	cout << "Расстояние до точки 'А': " << A.distance(A.get_x(), A.get_y()) << endl;
-	cout << "Расстояние до точки 'В': " << B.distance(B.get_x(), B.get_y()) << endl;
+	cout << "Расстояние до точки 'А': " << A.distance() << endl;
+	cout << "Расстояние до точки 'В': " << B.distance() << endl;
 	cout << "Расстояние между точками: " << distance(A, B) << endl;
 }
 
 double distance(Point a, Point b)
 {
-	return sqrt((b.get_x() - a.get_x()) * (b.get_x() - a.get_x()) + (b.get_y() - a.get_y()) * (b.get_y() - a.get_y()));
+	return b.distance() - a.distance();
 }
