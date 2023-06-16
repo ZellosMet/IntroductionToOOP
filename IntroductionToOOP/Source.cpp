@@ -43,7 +43,7 @@ void main()
 
 	cout << pA->x << "\t" << pA->y << endl; //Обращение к полю по адресу
 #endif 
-
+	//Использование гетеров и сетеров
 	Point A;
 	cout << A.get_x() << "\t" << A.get_y() << endl;
 	A.set_x(2);
