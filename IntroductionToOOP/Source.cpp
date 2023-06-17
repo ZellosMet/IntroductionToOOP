@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<math.h>
+#include<ctime>
 using namespace std;
 
 class Point //создание структуры
@@ -24,13 +25,18 @@ public: // реализация сетторов и геттеров
 	{
 		this->y = y;
 	}
+	void PointRand()
+	{
+		x = rand() % 10;
+		y = rand() % 10;	
+	}
 	double distance()const
 	{
-		return sqrt(x * x + y * y);
+		return sqrt(pow(x, 2)+ pow(y, 2));
 	}
 	double distancePointToPoint(Point b)const
 	{
-		return sqrt((b.get_x() - x) * (b.get_x() - x) + (b.get_y() - y) * (b.get_y() - y)); //???
+		return sqrt(pow((b.get_x() - x), 2) + pow((b.get_y() - y), 2));
 	}
 };
 
@@ -42,6 +48,7 @@ double Distance(Point a, Point b);
 void main()
 {
 	setlocale(LC_ALL, "ru");
+	srand(time(NULL));
 
 #ifdef STRUCT_POINT
 	Point A; //Создание объекта
@@ -53,31 +60,20 @@ void main()
 #endif 
 
 #ifdef HOME_WORK
-	double dot;
 	Point A;
 	Point B;
-	cout << "Введите координаты точки 'А': "; 
-	cin >> dot;
-	A.set_x(dot); 
-	cin >> dot;
-	A.set_y(dot);
-	cout << "Введите координаты точки 'В': ";
-	cin >> dot;
-	B.set_x(dot); 
-	cin >> dot;
-	B.set_y(dot);	
-	cout << "Координаты точки 'А': (" << A.get_x() << ", " << A.get_y() << ")" << endl;
-	cout << "Координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
+	A.PointRand();
+	B.PointRand();
+	cout << "Сгенерированные координаты точки 'А': (" << A.get_x() << ", " << A.get_y() << ")" << endl;
+	cout << "Сгенерированные координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
 	cout << "Расстояние до точки 'А': " << A.distance() << endl;
 	cout << "Расстояние до точки 'В': " << B.distance() << endl;
-	cout << "Расстояние между точками: " << Distance(A, B) << endl;
+	cout << "Расчёт расстояние между точками через функцию: " << Distance(A, B) << endl;
 	cout << "Расстояние между точками методом класса: " << A.distancePointToPoint(B) << endl;
 #endif
 }
 
 double Distance(Point a, Point b)
 {
-	if (b.distance() - a.distance()>0)
-	return b.distance() - a.distance();
-	return -(b.distance() - a.distance());
+	return sqrt(pow((b.get_x() - a.get_x()), 2) + pow((b.get_y() - a.get_y()), 2));
 }
