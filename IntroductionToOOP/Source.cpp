@@ -32,11 +32,11 @@ public: // реализация сетторов и геттеров
 	}
 	double distance()const
 	{
-		return sqrt(pow(x, 2)+ pow(y, 2));
+		return sqrt(pow(x, 2) + pow(y, 2));
 	}
 	double distancePointToPoint(Point b)const
 	{
-		return sqrt(pow((b.get_x() - x), 2) + pow((b.get_y() - y), 2));
+		return sqrt(pow((b.x - x), 2) + pow((b.y - y), 2));
 	}
 };
 
