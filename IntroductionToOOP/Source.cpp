@@ -8,6 +8,21 @@ class Point //создание структуры
 	double y;
 
 public: // реализация сетторов и геттеров
+	Point() //Конструктор без параметров
+	{
+		x = rand() % 10;
+		y = rand() % 10;		
+	}
+	Point(double x, double y) //Конструктор с параметрами
+	{
+		this->x = x;
+		this->y = y;
+	}
+	Point(const Point &cp) // Конструктор копирования
+	{
+		x = cp.x + 1; // Добавлено для отслеживаниея работы конструктора
+		y = cp.y + 1;
+	}
 	double get_x()const
 	{
 		return x;
@@ -18,16 +33,11 @@ public: // реализация сетторов и геттеров
 	}
 	void set_x(double x)
 	{
-		this->x = x; // this указывает на член класса для которого вызывается сетер
+		this->x = x;
 	}
 	void set_y(double y)
 	{
 		this->y = y;
-	}
-	void PointRand()
-	{
-		x = rand() % 10;
-		y = rand() % 10;	
 	}
 	double distance()const
 	{
@@ -36,6 +46,14 @@ public: // реализация сетторов и геттеров
 	double distancePointToPoint(Point b)const
 	{
 		return sqrt(pow((b.x - x), 2) + pow((b.y - y), 2));
+	}
+	void print()
+	{	
+		cout << "X = " << x << " Y = " << y << endl;
+	}
+	~Point() // Деконструктор
+	{
+		cout << "Точка уничтожина\n";
 	}
 };
 
@@ -59,11 +77,11 @@ void main()
 #endif 
 
 #ifdef HOME_WORK
-	Point A;
-	Point B;
-	A.PointRand();
-	B.PointRand();
+	Point A(2, 3); // Создание объекта конструктором с параметрами
+	Point B; //Создание объекта конструктором без параметров
+	Point A_cp{ A }; // Вызов конструктора копирования
 	cout << "Сгенерированные координаты точки 'А': (" << A.get_x() << ", " << A.get_y() << ")" << endl;
+	cout << "Координаты копии точки 'А' : (" << A_cp.get_x() << ", " << A_cp.get_y() << ")" << endl;
 	cout << "Сгенерированные координаты точки 'B': (" << B.get_x() << ", " << B.get_y() << ")" << endl;
 	cout << "Расстояние до точки 'А': " << A.distance() << endl;
 	cout << "Расстояние до точки 'В': " << B.distance() << endl;
