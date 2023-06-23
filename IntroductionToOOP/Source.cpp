@@ -25,13 +25,13 @@ public: // реализация сетторов и геттеров
 	{
 		this->x = x;
 		this->y = y;
-		cout << "Конструктор с двумя параметрами:\t" << this << endl;
+		//cout << "Конструктор с двумя параметрами:\t" << this << endl;
 	}
 	Point(const Point &other) // Конструктор копирования
 	{
 		x = other.x;
 		y = other.y;
-		cout << "Конструктор копирования:\t\t" << this << endl;
+		//cout << "Конструктор копирования:\t\t" << this << endl;
 	}
 	double get_x()const
 	{
@@ -63,23 +63,69 @@ public: // реализация сетторов и геттеров
 	}
 	~Point() // Деконструктор
 	{
-		cout << "Деконструктор:\t\t\t\t" << this << endl;
+		//cout << "Деконструктор:\t\t\t\t" << this << endl;
 	}
-	// оператор:
+
+	//					Оператор:
 	Point &operator=(const Point& other) //возвращаем по ссылки
 	{	
 		this-> x = other.x;
 		this-> y = other.y;
-		cout << "Оператор копирования:\t\t\t" << this << endl;
+		//cout << "Оператор копирования:\t\t\t" << this << endl;
 		return *this; // возвращаем разъименованное значение
 	}
+	Point& operator+=(const Point& other)
+	{
+		this->x += other.x;
+		this->y += other.y;
+		return *this;
+	}
+
+	Point & operator++() //Префексный инкримент
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int) //Посфиксный инкримент
+	{
+		Point old(*this); // Сохраняем исходное значение объекта
+		x++;
+		y++;
+		return old;
+	}
 };
+					//Арифметические операторы перегружаются за классом
 
-double Distance(Point &a, Point &b);
+Point operator+(const Point &left, const Point &right)
+{
+	/*Point result;																			//1. Способ описания реализации перегрузки
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());*/
 
+	//Point result(left.get_x() + right.get_x(), left.get_y() + right.get_y());				//2. Способ описания реализации перегрузки
+
+	return Point (left.get_x() + right.get_x(), left.get_y() + right.get_y());				//3. Способ описания реализации перегрузки
+}
+Point operator-(const Point& left, const Point& right)
+{
+	return Point(left.get_x() - right.get_x(), left.get_y() - right.get_y());
+}
+ostream &operator<<(ostream &os, const Point &obj)
+{
+	return os << "X = " << obj.get_x() << "\tY = " << obj.get_y();	
+}
+
+
+double Distance(Point &a, Point &b)
+{
+	return sqrt(pow((b.get_x() - a.get_x()), 2) + pow((b.get_y() - a.get_y()), 2));
+}
 //#define STRUCT_POINT
 //#define DISTANCE_CHECK
 //#define CONSTUCTORS_CHECK
+//#define ASSIGNMENT_CHECK
+//#define INCREMENT_CHECK
 
 #define delim "\n-----------------------------------------------\n"
 
@@ -122,14 +168,51 @@ void main()
 	E = D; //оператор присваивания
 	E.print();
 #endif 
+#ifdef ASSIGNMENT_CHECK
 	Point A, B, C;
 	A.print();
 	B.print();
 	C.print();
 	A = B = C = Point(2, 3);
-}
+#endif 
+#ifdef INCREMENT_CHECK
+	Point A(2, 3);
+	cout << "Точка А\t\t";
+	A.print();
+	Point B(7, 8);
+	cout << "Точка B\t\t";
+	A.print();
+	Point C = A + B;
+	cout << "С = А + В\t";
+	C.print();
+	C = A - B;
+	cout << "С = А - В\t";
+	C.print();
+	++A;
+	cout << "++А\t\t";
+	A.print();
+	Point D = A++;
+	cout << "D = А++\t\t";
+	D.print();
+	cout << "Точка А\t\t";
+	A.print();
 
-double Distance(Point &a, Point &b)
-{
-	return sqrt(pow((b.get_x() - a.get_x()), 2) + pow((b.get_y() - a.get_y()), 2));
+	Point E(3, 3);
+	cout << "Точка E\t\t";
+	E.print();
+	E = E++ + ++E;
+	cout << "E = E++ + ++E\t";
+	E.print();
+#endif 
+	Point A(2, 3);
+	cout << "Точка А\t\t";
+	A.print();
+	Point B(7, 8);
+	cout << "Точка B\t\t";
+	B.print();
+	A += B;
+	cout << "A+=B\t\t";
+	A.print();
+
+	cout << A << endl;
 }
