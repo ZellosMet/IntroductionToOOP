@@ -80,8 +80,25 @@ public: // реализация сетторов и геттеров
 		this->y += other.y;
 		return *this;
 	}
-
-	Point & operator++() //Префексный инкримент
+	Point& operator-=(const Point& other)
+	{
+		this->x -= other.x;
+		this->y -= other.y;
+		return *this;
+	}
+	Point& operator*=(const Point& other)
+	{
+		this->x *= other.x;
+		this->y *= other.y;
+		return *this;
+	}
+	Point& operator/=(const Point& other)
+	{
+		this->x /= other.x;
+		this->y /= other.y;
+		return *this;
+	}
+	Point &operator++() //Префексный инкримент
 	{
 		x++;
 		y++;
@@ -97,7 +114,7 @@ public: // реализация сетторов и геттеров
 };
 					//Арифметические операторы перегружаются за классом
 
-Point operator+(const Point &left, const Point &right)
+Point operator+(const Point& left, const Point& right)
 {
 	/*Point result;																			//1. Способ описания реализации перегрузки
 	result.set_x(left.get_x() + right.get_x());
@@ -111,9 +128,26 @@ Point operator-(const Point& left, const Point& right)
 {
 	return Point(left.get_x() - right.get_x(), left.get_y() - right.get_y());
 }
-ostream &operator<<(ostream &os, const Point &obj)
+Point operator*(const Point& left, const Point& right)
+{
+	return Point(left.get_x() * right.get_x(), left.get_y() * right.get_y());
+}
+Point operator/(const Point& left, const Point& right)
+{
+	return Point(left.get_x() / right.get_x(), left.get_y() / right.get_y());
+}
+
+ostream &operator<<(ostream& os, const Point& obj)
 {
 	return os << "X = " << obj.get_x() << "\tY = " << obj.get_y();	
+}
+istream &operator>>(istream& is, Point& obj)
+{
+	double x, y;
+	is >> x >> y;
+	obj.set_x(x);
+	obj.set_y(y);
+	return is;
 }
 
 
@@ -121,11 +155,13 @@ double Distance(Point &a, Point &b)
 {
 	return sqrt(pow((b.get_x() - a.get_x()), 2) + pow((b.get_y() - a.get_y()), 2));
 }
+
 //#define STRUCT_POINT
 //#define DISTANCE_CHECK
 //#define CONSTUCTORS_CHECK
 //#define ASSIGNMENT_CHECK
 //#define INCREMENT_CHECK
+//#define THREAD_OPERATORS
 
 #define delim "\n-----------------------------------------------\n"
 
@@ -181,12 +217,18 @@ void main()
 	A.print();
 	Point B(7, 8);
 	cout << "Точка B\t\t";
-	A.print();
+	B.print();
 	Point C = A + B;
 	cout << "С = А + В\t";
 	C.print();
 	C = A - B;
 	cout << "С = А - В\t";
+	C.print();
+	C = A * B;
+	cout << "С = А * В\t";
+	C.print();
+	C = A / B;
+	cout << "С = А / В\t";
 	C.print();
 	++A;
 	cout << "++А\t\t";
@@ -204,6 +246,7 @@ void main()
 	cout << "E = E++ + ++E\t";
 	E.print();
 #endif 
+#ifdef THREAD_OPERATORS
 	Point A(2, 3);
 	cout << "Точка А\t\t";
 	A.print();
@@ -213,6 +256,18 @@ void main()
 	A += B;
 	cout << "A+=B\t\t";
 	A.print();
-
+	A -= B;
+	cout << "A-=B\t\t";
+	A.print();
+	A *= B;
+	cout << "A*=B\t\t";
+	A.print();
+	A /= B;
+	cout << "A/=B\t\t";
+	A.print();
+	cout << A << endl << "Введите координаты точки\n";
+	cin >> A;
 	cout << A << endl;
+#endif 
+
 }
