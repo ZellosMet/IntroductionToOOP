@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Fraction
@@ -6,20 +6,20 @@ class Fraction
 	int Int, Num, Den;
 
 public:
-	//Конструкторы
-	Fraction(int Int = 0, int Num = 0, int Den = 0) // Конструктор по умолчанию
+	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹
+	Fraction(int Int = 0, int Num = 0, int Den = 0) // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	{
 		this->Int = Int;
 		this->Num = Num;
 		this->Den = Den;	
 	}
-	Fraction(const Fraction& other) // Конструктор копирования
+	Fraction(const Fraction& other) // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	{
 		Int = other.Int;
 		Num = other.Num;
 		Den = other.Den;
 	}
-	// Геттеры
+	// Р“РµС‚С‚РµСЂС‹
 	int get_Int()const
 	{
 		return Int;
@@ -32,7 +32,7 @@ public:
 	{
 		return Den;
 	}
-	// Сеттеры
+	// РЎРµС‚С‚РµСЂС‹
 	void set_Int(int Int)
 	{
 		this-> Int = Int;
@@ -46,7 +46,7 @@ public:
 		this-> Den = Den;
 	}
 
-	// Перегрузка присваивания
+	// РџРµСЂРµРіСЂСѓР·РєР° РїСЂРёСЃРІР°РёРІР°РЅРёСЏ
 	Fraction& operator=(const Fraction& other)
 	{
 		Int = other.Int;
@@ -94,7 +94,7 @@ public:
 		return *this;
 	}
 
-	// Методы
+	// РњРµС‚РѕРґС‹
 	Fraction Pow(int deg)
 	{
 		Int == 0 ? Num = Num : Num = Int * Den + Num;
@@ -108,7 +108,7 @@ public:
 		Num = Num % Den;
 		return *this;
 	}
-	int Сomparison(const Fraction& other) 
+	int РЎomparison(const Fraction& other) 
 	{
 		int Num_tmp, Den_tmp, ot_Num_tmp, ot_Den_tmp = other.Den;
 		if (other.Num == 0)
@@ -130,7 +130,7 @@ public:
 	}
 };
 
-//Перегрузка арифметических операторов
+//РџРµСЂРµРіСЂСѓР·РєР° Р°СЂРёС„РјРµС‚РёС‡РµСЃРєРёС… РѕРїРµСЂР°С‚РѕСЂРѕРІ
 Fraction operator+(const Fraction& left, const Fraction& right)
 {
 	Fraction result;
@@ -176,7 +176,7 @@ Fraction operator-(const Fraction& left, const Fraction& right)
 	result.set_Num(left_tmp.get_Num() * right_tmp.get_Den() - left_tmp.get_Den() * right_tmp.get_Num());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
-		if (result.get_Int() < 0) result.set_Num(-result.get_Num()); //Костыль	
+		if (result.get_Int() < 0) result.set_Num(-result.get_Num()); //РљРѕСЃС‚С‹Р»СЊ	
 	return result;
 }
 Fraction operator*(const Fraction& left, const Fraction& right)
@@ -237,7 +237,7 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 	result.set_Num(result.get_Num() % result.get_Den());
 	return result;
 }
-//Перегрузка потока
+//РџРµСЂРµРіСЂСѓР·РєР° РїРѕС‚РѕРєР°
 ostream& operator<<(ostream& os, const Fraction& obj)
 {
 	return os << "  " << obj.get_Num() << endl << obj.get_Int() << "---" << endl << "  " << obj.get_Den();
@@ -258,25 +258,25 @@ void main()
 	Fraction Fr1;
 	Fraction Fr2;
 
-	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)";
+	cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРІРѕР№ РґСЂРѕР±Рё(Р¦РµР»РѕРµ, С‡РёСЃР»РёС‚РµР»СЊ, Р·РЅР°РјРµРЅР°С‚РµР»СЊ)";
 	cin >> Fr1;
-	cout << "\nЗначение первой дроби" << endl << Fr1 << endl;
+	cout << "\nР—РЅР°С‡РµРЅРёРµ РїРµСЂРІРѕР№ РґСЂРѕР±Рё" << endl << Fr1 << endl;
 
-	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)";
+	cout << "Р’РІРµРґРёС‚Рµ Р·РЅР°С‡РµРЅРёСЏ РїРµСЂРІРѕР№ РґСЂРѕР±Рё(Р¦РµР»РѕРµ, С‡РёСЃР»РёС‚РµР»СЊ, Р·РЅР°РјРµРЅР°С‚РµР»СЊ)";
 	cin >> Fr2;
-	cout << "\nЗначение второй дроби" << endl << Fr2 << endl;
+	cout << "\nР—РЅР°С‡РµРЅРёРµ РІС‚РѕСЂРѕР№ РґСЂРѕР±Рё" << endl << Fr2 << endl;
 
 	Fraction Fr3 = Fr1 + Fr2;
-	cout << "Значение суммы дроби" << endl << Fr3 << endl;
+	cout << "Р—РЅР°С‡РµРЅРёРµ СЃСѓРјРјС‹ РґСЂРѕР±Рё" << endl << Fr3 << endl;
 	Fraction Fr4 = Fr1 - Fr2;
-	cout << "Значение разности дроби" << endl << Fr4 << endl;
+	cout << "Р—РЅР°С‡РµРЅРёРµ СЂР°Р·РЅРѕСЃС‚Рё РґСЂРѕР±Рё" << endl << Fr4 << endl;
 	Fraction Fr5 = Fr1 * Fr2;
-	cout << "Значение умножения дроби" << endl << Fr5 << endl;
+	cout << "Р—РЅР°С‡РµРЅРёРµ СѓРјРЅРѕР¶РµРЅРёСЏ РґСЂРѕР±Рё" << endl << Fr5 << endl;
 	Fraction Fr6 = Fr1 / Fr2;
-	cout << "Значение деления дроби" << endl << Fr6 << endl;
+	cout << "Р—РЅР°С‡РµРЅРёРµ РґРµР»РµРЅРёСЏ РґСЂРѕР±Рё" << endl << Fr6 << endl;
 	Fr1.Pow(3);
-	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
+	cout << "Р’РѕР·РІРµРґРµРЅРёРµ РїРµСЂРІРѕР№ РґСЂРѕР±Рё РІ СЃС‚РµРїРµРЅСЊ 3" << endl << Fr1 << endl;
 	Fr1*=5;
-	cout << "*= 5 для первой дроби" << endl << Fr1 << endl;
-	Fr1.Сomparison(Fr2) == 0 ? cout << "Дроби равны" : Fr1.Сomparison(Fr2) < 0 ? cout << "Первая дробь меньше второй" : cout << "Первая дробь больше второй";	
+	cout << "*= 5 РґР»СЏ РїРµСЂРІРѕР№ РґСЂРѕР±Рё" << endl << Fr1 << endl;
+	Fr1.РЎomparison(Fr2) == 0 ? cout << "Р”СЂРѕР±Рё СЂР°РІРЅС‹" : Fr1.РЎomparison(Fr2) < 0 ? cout << "РџРµСЂРІР°СЏ РґСЂРѕР±СЊ РјРµРЅСЊС€Рµ РІС‚РѕСЂРѕР№" : cout << "РџРµСЂРІР°СЏ РґСЂРѕР±СЊ Р±РѕР»СЊС€Рµ РІС‚РѕСЂРѕР№";	
 }
