@@ -108,7 +108,7 @@ public:
 		Num = Num % Den;
 		return *this;
 	}
-	int Сomparison(const Fraction& other) 
+	int Сomparison(const Fraction& other)const
 	{
 		int Num_tmp, Den_tmp, ot_Num_tmp, ot_Den_tmp = other.Den;
 		if (other.Num == 0)
