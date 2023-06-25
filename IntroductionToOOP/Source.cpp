@@ -66,8 +66,8 @@ public: // реализация сетторов и геттеров
 		//cout << "Деконструктор:\t\t\t\t" << this << endl;
 	}
 
-	//					Оператор:
-	Point &operator=(const Point& other) //возвращаем по ссылки
+	//					Унарные поераторы перегружаются внутри класса
+	Point& operator=(const Point& other) //возвращаем по ссылки
 	{	
 		this-> x = other.x;
 		this-> y = other.y;
@@ -98,7 +98,7 @@ public: // реализация сетторов и геттеров
 		this->y /= other.y;
 		return *this;
 	}
-	Point &operator++() //Префексный инкримент
+	Point& operator++() //Префексный инкримент
 	{
 		x++;
 		y++;
@@ -109,6 +109,19 @@ public: // реализация сетторов и геттеров
 		Point old(*this); // Сохраняем исходное значение объекта
 		x++;
 		y++;
+		return old;
+	}
+	Point& operator--() //Префексный декримент
+	{
+		x--;
+		y--;
+		return *this;
+	}
+	Point operator--(int) //Посфиксный декримент
+	{
+		Point old(*this); 
+		x--;
+		y--;
 		return old;
 	}
 };
@@ -136,12 +149,12 @@ Point operator/(const Point& left, const Point& right)
 {
 	return Point(left.get_x() / right.get_x(), left.get_y() / right.get_y());
 }
-
-ostream &operator<<(ostream& os, const Point& obj)
+					//Операторы потока перегружаются за классом
+ostream& operator<<(ostream& os, const Point& obj)
 {
 	return os << "X = " << obj.get_x() << "\tY = " << obj.get_y();	
 }
-istream &operator>>(istream& is, Point& obj)
+istream& operator>>(istream& is, Point& obj)
 {
 	double x, y;
 	is >> x >> y;
@@ -151,7 +164,7 @@ istream &operator>>(istream& is, Point& obj)
 }
 
 
-double Distance(Point &a, Point &b)
+double Distance(Point& a, Point& b)
 {
 	return sqrt(pow((b.get_x() - a.get_x()), 2) + pow((b.get_y() - a.get_y()), 2));
 }
