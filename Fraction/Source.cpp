@@ -102,7 +102,7 @@ public:
 		return *this;
 	}
 
-	// Методы
+	//Методы
 	Fraction Pow(int deg)
 	{
 		Int == 0 ? Num = Num : Num = Int * Den + Num;
