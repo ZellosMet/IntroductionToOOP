@@ -264,6 +264,9 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 //Перегрузка потока
 ostream& operator<<(ostream& os, const Fraction& obj)
 {
+	if (obj.get_Int() == 0 && obj.get_Num() == 0) return os << 0;
+	if (obj.get_Int() == 0) return os << " " << obj.get_Num() << endl << "---" << endl << " " << obj.get_Den();
+	if (obj.get_Num() == 0) return os << obj.get_Int();
 	return os << "  " << obj.get_Num() << endl << obj.get_Int() << "---" << endl << "  " << obj.get_Den();
 }
 istream& operator>>(istream& is, Fraction& obj)
@@ -302,5 +305,5 @@ void main()
 	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
 	Fr2*=5;
 	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
-	Fr1.Сomparison(Fr2) == 0 ? cout << "Дроби равны" : Fr1.Сomparison(Fr2) < 0 ? cout << "Первая дробь меньше второй" : cout << "Первая дробь больше второй";	
+	Fr1.Сomparison(Fr2) == 0 ? cout << "Дроби равны/n" : Fr1.Сomparison(Fr2) < 0 ? cout << "Первая дробь меньше второй/n" : cout << "Первая дробь больше второй/n";	
 }
