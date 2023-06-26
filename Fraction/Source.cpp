@@ -80,7 +80,7 @@ public:
 		Den *= tmp.Den;
 		Int = Num / Den;
 		Num = Num % Den;
-		for (int i = 2; i <= 11; i++) if (Num % i == 0 && Den % i == 0) t = i;
+		for (int i = 2; i <= 97; i++) if (Num % i == 0 && Den % i == 0) t = i;
 		Num /= t;
 		Den /= t;
 		return *this;
@@ -96,7 +96,7 @@ public:
 		Den *= tmp.Num;
 		Int = Num / Den;
 		Num = Num % Den;
-		for (int i = 2; i <= 11; i++) if (Num % i == 0 && Den % i == 0) t = i;
+		for (int i = 2; i <= 97; i++) if (Num % i == 0 && Den % i == 0) t = i;
 		Num /= t;
 		Den /= t;
 		return *this;
@@ -167,7 +167,7 @@ Fraction operator+(const Fraction& left, const Fraction& right)
 	result.set_Num(left.get_Den() * right.get_Num() + right.get_Den() * left.get_Num());
 	result.set_Int(left.get_Int() + right.get_Int() + result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
-	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	for (int i = 2; i <= 97; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
 	result.set_Num(result.get_Num() / t);
 	result.set_Den(result.get_Den() / t);
 	return result;
@@ -200,7 +200,7 @@ Fraction operator-(const Fraction& left, const Fraction& right)
 	result.set_Num(left_tmp.get_Num() * right_tmp.get_Den() - left_tmp.get_Den() * right_tmp.get_Num());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
-	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	for (int i = 2; i <= 97; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
 	result.set_Num(result.get_Num() / t);
 	result.set_Den(result.get_Den() / t);
 		if (result.get_Int() < 0) result.set_Num(-result.get_Num()); //Костыль	
@@ -234,7 +234,7 @@ Fraction operator*(const Fraction& left, const Fraction& right)
 	result.set_Den(left_tmp.get_Den() * right_tmp.get_Den());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
-	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	for (int i = 2; i <= 97; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
 	result.set_Num(result.get_Num() / t);
 	result.set_Den(result.get_Den() / t);
 	return result;
@@ -267,7 +267,7 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 	result.set_Den(left_tmp.get_Den() * right_tmp.get_Num());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
-	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	for (int i = 2; i <= 97; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
 	result.set_Num(result.get_Num() / t);
 	result.set_Den(result.get_Den() / t);
 	return result;
