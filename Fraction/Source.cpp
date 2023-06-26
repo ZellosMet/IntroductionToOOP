@@ -141,24 +141,35 @@ public:
 //Перегрузка арифметических операторов
 Fraction operator+(const Fraction& left, const Fraction& right)
 {
-	Fraction result;
+	Fraction result, left_tmp = left, right_tmp = right;
 	int t = 1;
-	if (left.get_Num() == 0 || right.get_Num() == 0)
+	if (left_tmp.get_Num() == 0 && left_tmp.get_Den() == 0)
 	{
-		result.set_Int(left.get_Int() + right.get_Int());
-		result.set_Num(left.get_Num() + right.get_Num());
-		result.set_Den(left.get_Den() + right.get_Den());
+		left_tmp.set_Num(left_tmp.get_Int());
+		left_tmp.set_Int(0);
+		left_tmp.set_Den(1);
 	}
 	else
 	{
-		result.set_Den(left.get_Den() * right.get_Den());
-		result.set_Num(left.get_Den() * right.get_Num() + right.get_Den() * left.get_Num());
-		result.set_Int(left.get_Int() + right.get_Int() + result.get_Num() / result.get_Den());
-		result.set_Num(result.get_Num() % result.get_Den());
-		for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
-		result.set_Num(result.get_Num() / t);
-		result.set_Den(result.get_Den() / t);
+		left_tmp.set_Num(left_tmp.get_Int() * left_tmp.get_Den() + left_tmp.get_Num());
 	}
+	if (right_tmp.get_Num() == 0 && right_tmp.get_Den() == 0)
+	{
+		right_tmp.set_Num(right_tmp.get_Int());
+		right_tmp.set_Int(0);
+		right_tmp.set_Den(1);
+	}
+	else
+	{
+		right_tmp.set_Num(right_tmp.get_Int() * right_tmp.get_Den() + right_tmp.get_Num());
+	}	
+	result.set_Den(left.get_Den() * right.get_Den());
+	result.set_Num(left.get_Den() * right.get_Num() + right.get_Den() * left.get_Num());
+	result.set_Int(left.get_Int() + right.get_Int() + result.get_Num() / result.get_Den());
+	result.set_Num(result.get_Num() % result.get_Den());
+	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	result.set_Num(result.get_Num() / t);
+	result.set_Den(result.get_Den() / t);
 	return result;
 }
 Fraction operator-(const Fraction& left, const Fraction& right)
