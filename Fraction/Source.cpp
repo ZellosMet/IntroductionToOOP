@@ -72,6 +72,7 @@ public:
 	Fraction& operator*=(const Fraction& other)
 	{
 		Fraction tmp = other;
+		int t = 1;
 		tmp.Num = tmp.Int;
 		tmp.Den = 1;
 		Num = Int * Den + Num;
@@ -79,11 +80,15 @@ public:
 		Den *= tmp.Den;
 		Int = Num / Den;
 		Num = Num % Den;
+		for (int i = 2; i <= 11; i++) if (Num % i == 0 && Den % i == 0) t = i;
+		Num /= t;
+		Den /= t;
 		return *this;
 	}
 	Fraction& operator/=(const Fraction& other)
 	{
 		Fraction tmp = other;
+		int t = 1;
 		tmp.Num = tmp.Int;
 		tmp.Den = 1;
 		Num = Int * Den + Num;
@@ -91,6 +96,9 @@ public:
 		Den *= tmp.Num;
 		Int = Num / Den;
 		Num = Num % Den;
+		for (int i = 2; i <= 11; i++) if (Num % i == 0 && Den % i == 0) t = i;
+		Num /= t;
+		Den /= t;
 		return *this;
 	}
 
@@ -134,6 +142,7 @@ public:
 Fraction operator+(const Fraction& left, const Fraction& right)
 {
 	Fraction result;
+	int t = 1;
 	if (left.get_Num() == 0 || right.get_Num() == 0)
 	{
 		result.set_Int(left.get_Int() + right.get_Int());
@@ -146,12 +155,16 @@ Fraction operator+(const Fraction& left, const Fraction& right)
 		result.set_Num(left.get_Den() * right.get_Num() + right.get_Den() * left.get_Num());
 		result.set_Int(left.get_Int() + right.get_Int() + result.get_Num() / result.get_Den());
 		result.set_Num(result.get_Num() % result.get_Den());
+		for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+		result.set_Num(result.get_Num() / t);
+		result.set_Den(result.get_Den() / t);
 	}
 	return result;
 }
 Fraction operator-(const Fraction& left, const Fraction& right)
 {
 	Fraction result, left_tmp = left, right_tmp = right;
+	int t = 1;
 	if (left_tmp.get_Num() == 0 && left_tmp.get_Den() == 0)
 	{
 		left_tmp.set_Num(left_tmp.get_Int());
@@ -176,12 +189,16 @@ Fraction operator-(const Fraction& left, const Fraction& right)
 	result.set_Num(left_tmp.get_Num() * right_tmp.get_Den() - left_tmp.get_Den() * right_tmp.get_Num());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
+	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	result.set_Num(result.get_Num() / t);
+	result.set_Den(result.get_Den() / t);
 		if (result.get_Int() < 0) result.set_Num(-result.get_Num()); //Костыль	
 	return result;
 }
 Fraction operator*(const Fraction& left, const Fraction& right)
 {
-	Fraction result, left_tmp = left, right_tmp = right;
+	Fraction result, left_tmp = left, right_tmp = right; 
+	int t = 1;
 	if (left_tmp.get_Num() == 0 && left_tmp.get_Den() == 0)
 	{
 		left_tmp.set_Num(left_tmp.get_Int());
@@ -206,11 +223,15 @@ Fraction operator*(const Fraction& left, const Fraction& right)
 	result.set_Den(left_tmp.get_Den() * right_tmp.get_Den());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
+	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	result.set_Num(result.get_Num() / t);
+	result.set_Den(result.get_Den() / t);
 	return result;
 }
 Fraction operator/(const Fraction& left, const Fraction& right)
 {
 	Fraction result, left_tmp = left, right_tmp = right;
+	int t = 1;
 	if (left_tmp.get_Num() == 0 && left_tmp.get_Den() == 0)
 	{
 		left_tmp.set_Num(left_tmp.get_Int());
@@ -235,6 +256,9 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 	result.set_Den(left_tmp.get_Den() * right_tmp.get_Num());
 	result.set_Int(result.get_Num() / result.get_Den());
 	result.set_Num(result.get_Num() % result.get_Den());
+	for (int i = 2; i <= 11; i++) if (result.get_Num() % i == 0 && result.get_Den() % i == 0) t = i;
+	result.set_Num(result.get_Num() / t);
+	result.set_Den(result.get_Den() / t);
 	return result;
 }
 //Перегрузка потока
@@ -276,7 +300,7 @@ void main()
 	cout << "Значение деления дроби" << endl << Fr6 << endl;
 	Fr1.Pow(3);
 	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
-	Fr1*=5;
-	cout << "*= 5 для первой дроби" << endl << Fr1 << endl;
+	Fr2*=5;
+	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
 	Fr1.Сomparison(Fr2) == 0 ? cout << "Дроби равны" : Fr1.Сomparison(Fr2) < 0 ? cout << "Первая дробь меньше второй" : cout << "Первая дробь больше второй";	
 }
