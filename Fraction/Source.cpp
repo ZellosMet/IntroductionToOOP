@@ -150,6 +150,32 @@ public:
 		Reduce();
 		return *this;
 	}
+
+	//Перегрузка операторов сравнения
+	bool operator==(const Fraction& other)
+	{
+		Fraction tmp = other;
+		tmp.ToImproper();
+		return Num*tmp.get_Den() == tmp.get_Num()*Den;
+	}
+	bool operator!=(const Fraction& other)
+	{
+		Fraction tmp = other;
+		tmp.ToImproper();
+		return Num * tmp.get_Den() != tmp.get_Num() * Den;
+	}
+	bool operator<(const Fraction& other)
+	{
+		Fraction tmp = other;
+		tmp.ToImproper();
+		return Num * tmp.get_Den() < tmp.get_Num() * Den;
+	}
+	bool operator>(const Fraction& other)
+	{
+		Fraction tmp = other;
+		tmp.ToImproper();
+		return Num * tmp.get_Den() > tmp.get_Num() * Den;
+	}
 };
 
 //Перегрузка арифметических операторов
@@ -241,7 +267,7 @@ void main()
 {
 	setlocale(LC_ALL, "ru");
 	Fraction Fr1(1, 1, 15);
-	Fraction Fr2(1, 4, 15);	
+	Fraction Fr2(1, 4, 16);	
 	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)";
 	//cin >> Fr1;
 	cout << "Значение первой дроби" << endl << Fr1 << endl;
@@ -261,4 +287,5 @@ void main()
 	Fr2*=5;
 	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
 	Сomparison(Fr1, Fr2) == 0 ? cout << "Дроби равны" : Сomparison(Fr1, Fr2) < 0 ? cout << "Первая дробь меньше второй" : cout << "Первая дробь больше второй";	
+	cout << "\nПервая дробь > Вторая дробь? " << (Fr1 > Fr2);
 }
