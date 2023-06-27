@@ -244,13 +244,6 @@ istream& operator>>(istream& is, Fraction& obj)
 }
 
 // Функции для дробей
-int Сomparison(const Fraction& left, const Fraction& right)
-{
-	Fraction result = left - right;
-	if (result.get_Num() < 0) return -1;
-	else if (result.get_Num() > 0) return 1;
-	if (result.get_Num() == 0) 0; return 0;
-}
 Fraction Pow(Fraction& other, int deg)
 {
 	Fraction tmp;
@@ -286,6 +279,5 @@ void main()
 	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
 	Fr2*=5;
 	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
-	Сomparison(Fr1, Fr2) == 0 ? cout << "Дроби равны" : Сomparison(Fr1, Fr2) < 0 ? cout << "Первая дробь меньше второй" : cout << "Первая дробь больше второй";	
-	cout << "\nПервая дробь > Вторая дробь? " << (Fr1 > Fr2);
+	Fr1 == Fr2 ? cout << "Дроби равны" : Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй";
 }
