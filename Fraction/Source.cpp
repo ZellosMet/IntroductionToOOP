@@ -152,25 +152,25 @@ public:
 	}
 
 	//Перегрузка операторов сравнения
-	bool operator==(const Fraction& other)
+	bool operator==(const Fraction& other)const
 	{
 		Fraction tmp = other;
 		tmp.ToImproper();
 		return Num*tmp.get_Den() == tmp.get_Num()*Den;
 	}
-	bool operator!=(const Fraction& other)
+	bool operator!=(const Fraction& other)const
 	{
 		Fraction tmp = other;
 		tmp.ToImproper();
 		return Num * tmp.get_Den() != tmp.get_Num() * Den;
 	}
-	bool operator<(const Fraction& other)
+	bool operator<(const Fraction& other)const
 	{
 		Fraction tmp = other;
 		tmp.ToImproper();
 		return Num * tmp.get_Den() < tmp.get_Num() * Den;
 	}
-	bool operator>(const Fraction& other)
+	bool operator>(const Fraction& other)const
 	{
 		Fraction tmp = other;
 		tmp.ToImproper();
