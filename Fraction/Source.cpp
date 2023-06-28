@@ -267,7 +267,7 @@ istream& operator>>(istream& is, Fraction& obj)
 	return is;
 }
 
-// Функции для дробей
+// Функции
 Fraction Pow(Fraction& other, int deg)
 {
 	Fraction tmp;
