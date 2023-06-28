@@ -249,7 +249,7 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 	return result;
 }
 
-//Перегрузка потока
+// Перегрузка потока
 ostream& operator<<(ostream& os, const Fraction& obj)
 {
 	if (obj.get_Int() == 0 && obj.get_Num() == 0) return os << 0;
