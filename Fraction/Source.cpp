@@ -176,6 +176,30 @@ public:
 		tmp.ToImproper();
 		return Num * tmp.get_Den() > tmp.get_Num() * Den;
 	}
+
+	//Перегрузка инкримента/декримента
+	Fraction& operator++() //Префексный инкримент
+	{
+		Int++;
+		return *this;
+	}
+	Fraction operator++(int) //Посфиксный инкримент
+	{
+		Fraction old(*this);
+		Int++;
+		return old;
+	}
+	Fraction& operator--() //Префексный декримент
+	{
+		Int--;
+		return *this;
+	}
+	Fraction operator--(int) //Посфиксный декримент
+	{
+		Fraction old(*this);
+		Int--;
+		return old;
+	}
 };
 
 //Перегрузка арифметических операторов
@@ -239,7 +263,7 @@ istream& operator>>(istream& is, Fraction& obj)
 	is >> Int >> Num >> Den;
 	obj.set_Int(Int);
 	obj.set_Num(Num);
-	obj.set_Den(Den);	
+	obj.set_Den(Den);
 	return is;
 }
 
@@ -261,10 +285,10 @@ void main()
 	setlocale(LC_ALL, "ru");
 	Fraction Fr1(1, 1, 15);
 	Fraction Fr2(1, 4, 16);	
-	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)";
+	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
 	//cin >> Fr1;
 	cout << "Значение первой дроби" << endl << Fr1 << endl;
-	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)";
+	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
 	//cin >> Fr2;
 	cout << "Значение второй дроби" << endl << Fr2 << endl;
 	Fraction Fr3 = Fr1 + Fr2;
@@ -277,6 +301,8 @@ void main()
 	cout << "Значение деления дроби" << endl << Fr6 << endl;
 	Pow(Fr1, 3);
 	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
+	Fr1++;
+	cout << "Инкримент первой дроби" << endl << Fr1 << endl;
 	Fr2*=5;
 	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
 	Fr1 == Fr2 ? cout << "Дроби равны" : Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй";
