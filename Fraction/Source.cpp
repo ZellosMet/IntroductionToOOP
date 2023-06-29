@@ -89,7 +89,7 @@ public:
 	Fraction& Reduce() //Сокращение дроби
 	{
 		int t = 1;
-		for (int i = 100; i >= 2; i--)
+		for (int i = Num; i >= 2; i--)
 		{
 			if (Num % i == 0 && Den % i == 0)
 			{
@@ -256,7 +256,7 @@ void main()
 {
 	setlocale(LC_ALL, "ru");
 	bool b;
-	Fraction Fr1(3, 4, 5);
+	Fraction Fr1(3, 5, 15);
 	Fraction Fr2(2, 3, 4);
 	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
 	//cin >> Fr1;
