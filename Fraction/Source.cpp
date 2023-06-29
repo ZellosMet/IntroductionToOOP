@@ -101,6 +101,13 @@ public:
 		Den = Den / t;
 		return *this;
 	}
+	Fraction inverted()const
+	{
+		Fraction inverted = *this;
+		inverted.ToImproper();
+		std::swap(inverted.Num, inverted.Den);
+		return inverted;	
+	}
 
 	// Перегрузка присваивания
 	Fraction& operator=(const Fraction& other)
@@ -128,41 +135,38 @@ public:
 	}
 
 	//Перегрузка операторов сравнения
-	bool operator==(const Fraction& other)
+	bool operator==(const Fraction& other)const
 	{
-		Fraction tmp = other;
-		tmp.ToImproper();
-		return Num*tmp.get_Den() == tmp.get_Num()*Den;
+		Fraction ot = other, th = *this;
+		th.ToImproper();
+		ot.ToImproper();
+		return th.Num * ot.get_Den() == ot.get_Num() * th.Den;
 	}
-	bool operator!=(const Fraction& other)
+	bool operator!=(const Fraction& other)const
 	{
-		Fraction tmp = other;
-		tmp.ToImproper();
-		return Num * tmp.get_Den() != tmp.get_Num() * Den;
+		return !(*this == other);
 	}
-	bool operator<(const Fraction& other)
+	bool operator<(const Fraction& other)const
 	{
-		Fraction tmp = other;
-		tmp.ToImproper();
-		return Num * tmp.get_Den() < tmp.get_Num() * Den;
+		Fraction ot = other, th = *this;
+		th.ToImproper();
+		ot.ToImproper();
+		return th.Num * ot.get_Den() < ot.get_Num() * th.Den;
 	}
-	bool operator>(const Fraction& other)
+	bool operator>(const Fraction& other)const
 	{
-		Fraction tmp = other;
-		tmp.ToImproper();
-		return Num * tmp.get_Den() > tmp.get_Num() * Den;
+		return !(*this < other);
 	}
-	bool operator<=(const Fraction& other)
+	bool operator<=(const Fraction& other)const
 	{
-		Fraction tmp = other;
-		tmp.ToImproper();
-		return Num * tmp.get_Den() <= tmp.get_Num() * Den;
+		Fraction ot = other, th = *this;
+		th.ToImproper();
+		ot.ToImproper();
+		return th.Num * ot.get_Den() <= ot.get_Num() * th.Den;
 	}
-	bool operator>=(const Fraction& other)
+	bool operator>=(const Fraction& other)const
 	{
-		Fraction tmp = other;
-		tmp.ToImproper();
-		return Num * tmp.get_Den() >= tmp.get_Num() * Den;
+		return !(*this <= other);
 	}
 
 	//Перегрузка инкримента/декримента
@@ -201,9 +205,10 @@ Fraction operator-(Fraction left, Fraction right)
 {
 	left.ToImproper();
 	right.ToImproper();
-	return Fraction(left.get_Num() * right.get_Den() - right.get_Num() * left.get_Den(), left.get_Den() * right.get_Den()).ToProper();
+	right.set_Num(-right.get_Num());
+	return left + right;
 }
-Fraction operator*( Fraction left, Fraction right)
+Fraction operator*(Fraction left, Fraction right)
 {
 	left.ToImproper();
 	right.ToImproper();	
@@ -213,7 +218,7 @@ Fraction operator/(Fraction left, Fraction right)
 {
 	left.ToImproper();
 	right.ToImproper();
-	return Fraction(left.get_Num() * right.get_Den(), left.get_Den() * right.get_Num()).ToProper();
+	return left * right.inverted();
 }
 
 // Перегрузка потока
@@ -250,8 +255,9 @@ Fraction Pow(Fraction& other, int deg)
 void main()
 {
 	setlocale(LC_ALL, "ru");
-	Fraction Fr1(2, 3, 4);
-	Fraction Fr2(3, 4, 5);	
+	bool b;
+	Fraction Fr1(3, 4, 5);
+	Fraction Fr2(2, 3, 4);
 	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
 	//cin >> Fr1;
 	cout << "Значение первой дроби" << endl << Fr1 << endl;
@@ -270,7 +276,7 @@ void main()
 	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
 	Fr1++;
 	cout << "Инкримент первой дроби" << endl << Fr1 << endl;
-	Fr2/=5;
+	Fr2*=5;
 	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
-	Fr1 == Fr2 ? cout << "Дроби равны" : Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй";
+	Fr1 == Fr2 ? cout << "Дроби равны" : (Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй");
 }
