@@ -201,7 +201,7 @@ Fraction operator+(Fraction left, Fraction right)
 {
 	left.ToImproper();
 	right.ToImproper();
-	return Fraction(left.get_Num() * right.get_Den() + right.get_Num() * left.get_Den(), left.get_Den() * right.get_Den()).ToProper();
+	return Fraction(left.get_Num() * right.get_Den() + right.get_Num() * left.get_Den(), left.get_Den() * right.get_Den()).ToProper().Reduce();
 }
 Fraction operator-(Fraction left, Fraction right)
 {
@@ -214,7 +214,7 @@ Fraction operator*(Fraction left, Fraction right)
 {
 	left.ToImproper();
 	right.ToImproper();	
-	return Fraction(left.get_Num() * right.get_Num(), left.get_Den() * right.get_Den()).ToProper();
+	return Fraction(left.get_Num() * right.get_Num(), left.get_Den() * right.get_Den()).ToProper().Reduce();
 }
 Fraction operator/(Fraction left, Fraction right)
 {
@@ -237,22 +237,34 @@ istream& operator>>(istream& is, Fraction& obj)
 	const int SIZE = 256;
 	char fraction[SIZE];
 	is.getline(fraction, SIZE);
-	for (int i = 0; i < fraction[i]; i++) if (fraction[i]==' ') tmp++;
+	for (int i = 0; i < fraction[i]; i++)
+	{
+		if (fraction[i]==' ') tmp++;
+		else if (fraction[i] < '0' || fraction[i] > '9')
+		{
+			cout << "Введены некорректные данные\n"; //???
+			return is;
+		}
+	}
 	if (tmp == 2) 
 	{
 		obj.set_Int(ToIntNumber(fraction));
 		obj.set_Num(ToIntNumber(fraction));
 		obj.set_Den(ToIntNumber(fraction));
 	}
-	if (tmp == 1) 
+	else if (tmp == 1) 
 	{
 		obj.set_Num(ToIntNumber(fraction));
-		obj.set_Den(ToIntNumber(fraction));
+		obj.set_Den(ToIntNumber(fraction));		
 	}
-	if (tmp == 0)
+	else if (tmp == 0)
 	{
 		obj.set_Int(ToIntNumber(fraction));
 	}	
+	else 
+	{
+		cout << "Введено слишком много переменных\n"; //???
+	}
 	return is;
 }
 
@@ -272,10 +284,7 @@ int ToIntNumber(char* str)
 	int num = 0;
 	for (int i = 0; str[i]; i++)
 	{
-		if (str[i]==' ')
-		{
-			break;
-		}
+		if (str[i]==' ') break;
 		num *= 10;
 		num += str[i] - '0';
 	}
@@ -284,28 +293,17 @@ int ToIntNumber(char* str)
 }
 char* Shrink(char* str)
 {
-	while (str[0] != ' ' && str[1] !=0)
-	{
-		for (int j = 0; str[j]; j++)
-		{
-			str[j] = str[j + 1];
-		}
-	}
-	for (int i = 0; str[i]; i++)
-	{
-		str[i] = str[i + 1];
-	}
+	while (str[0] != ' ' && str[1] !=0) for (int j = 0; str[j]; j++) str[j] = str[j + 1];
+	for (int i = 0; str[i]; i++) str[i] = str[i + 1];
 	return str;
 }
-
-
 
 void main()
 {
 	setlocale(LC_ALL, "ru");
 	bool b;
 	Fraction Fr1;
-	Fraction Fr2(2, 3, 4);
+	Fraction Fr2;
 	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
 	cin >> Fr1;
 	cout << "Значение первой дроби" << endl << Fr1 << endl;
