@@ -92,8 +92,8 @@ public:
 	{
 		int i;
 		for (i = Num; i >= 2; i--) if (Num % i == 0 && Den % i == 0) break;
-		Num = Num / i;
-		Den = Den / i;
+		Num /= i;
+		Den /= i;
 		return *this;
 	}
 	Fraction inverted()const
@@ -137,16 +137,16 @@ public:
 		ot.ToImproper();
 		return th.Num * ot.get_Den() == ot.get_Num() * th.Den;
 	}
-	bool operator!=(const Fraction& other)const
-	{
-		return !(*this == other);
-	}
 	bool operator<(const Fraction& other)const
 	{
 		Fraction ot = other, th = *this;
 		th.ToImproper();
 		ot.ToImproper();
 		return th.Num * ot.get_Den() < ot.get_Num() * th.Den;
+	}
+	bool operator!=(const Fraction& other)const
+	{
+		return !(*this == other);
 	}
 	bool operator>(const Fraction& other)const
 	{
@@ -268,8 +268,7 @@ Fraction Pow(Fraction& other, int deg)
 	other.ToImproper();
 	tmp = other;
 	for (int i = 0; i < deg - 1; i++) other *= tmp;
-	other.ToProper();
-	other.Reduce();
+	other.ToProper().Reduce();
 	return other;
 }
 int ToIntNumber(char* str)
