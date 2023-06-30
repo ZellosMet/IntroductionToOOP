@@ -157,18 +157,18 @@ public:
 	}
 	bool operator>(const Fraction& other)const
 	{
-		return !(*this < other);
-	}
-	bool operator<=(const Fraction& other)const
-	{
 		Fraction ot = other, th = *this;
 		th.ToImproper();
 		ot.ToImproper();
-		return th.Num * ot.get_Den() <= ot.get_Num() * th.Den;
+		return th.Num * ot.get_Den() > ot.get_Num() * th.Den;
+	}
+	bool operator<=(const Fraction& other)const
+	{	
+		return !(*this > other);
 	}
 	bool operator>=(const Fraction& other)const
 	{
-		return !(*this <= other);
+		return !(*this < other);
 	}
 
 	//Перегрузка инкримента/декримента
