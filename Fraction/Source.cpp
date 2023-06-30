@@ -6,6 +6,8 @@ Fraction operator+(Fraction left, Fraction right);
 Fraction operator-(Fraction left, Fraction right);
 Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(Fraction left, Fraction right);
+int ToIntNumber(char* str);
+char* Shrink(char* str);
 
 class Fraction
 {
@@ -230,12 +232,27 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 	return os << "  " << obj.get_Num() << endl << obj.get_Int() << "---" << endl << "  " << obj.get_Den();
 }
 istream& operator>>(istream& is, Fraction& obj)
-{
-	int Int, Num, Den;
-	is >> Int >> Num >> Den;
-	obj.set_Int(Int);
-	obj.set_Num(Num);
-	obj.set_Den(Den);
+{	
+	int tmp = 0;
+	const int SIZE = 256;
+	char fraction[SIZE];
+	is.getline(fraction, SIZE);
+	for (int i = 0; i < fraction[i]; i++) if (fraction[i]==' ') tmp++;
+	if (tmp == 2) 
+	{
+		obj.set_Int(ToIntNumber(fraction));
+		obj.set_Num(ToIntNumber(fraction));
+		obj.set_Den(ToIntNumber(fraction));
+	}
+	if (tmp == 1) 
+	{
+		obj.set_Num(ToIntNumber(fraction));
+		obj.set_Den(ToIntNumber(fraction));
+	}
+	if (tmp == 0)
+	{
+		obj.set_Int(ToIntNumber(fraction));
+	}	
 	return is;
 }
 
@@ -250,19 +267,50 @@ Fraction Pow(Fraction& other, int deg)
 	other.Reduce();
 	return other;
 }
+int ToIntNumber(char* str)
+{
+	int num = 0;
+	for (int i = 0; str[i]; i++)
+	{
+		if (str[i]==' ')
+		{
+			break;
+		}
+		num *= 10;
+		num += str[i] - '0';
+	}
+	if(str[1]!=0)Shrink(str);
+	return num;
+}
+char* Shrink(char* str)
+{
+	while (str[0] != ' ' && str[1] !=0)
+	{
+		for (int j = 0; str[j]; j++)
+		{
+			str[j] = str[j + 1];
+		}
+	}
+	for (int i = 0; str[i]; i++)
+	{
+		str[i] = str[i + 1];
+	}
+	return str;
+}
+
 
 
 void main()
 {
 	setlocale(LC_ALL, "ru");
 	bool b;
-	Fraction Fr1(3, 5, 15);
+	Fraction Fr1;
 	Fraction Fr2(2, 3, 4);
-	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
-	//cin >> Fr1;
+	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
+	cin >> Fr1;
 	cout << "Значение первой дроби" << endl << Fr1 << endl;
-	//cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
-	//cin >> Fr2;
+	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
+	cin >> Fr2;
 	cout << "Значение второй дроби" << endl << Fr2 << endl;
 	Fraction Fr3 = Fr1 + Fr2;
 	cout << "Значение суммы дроби" << endl << Fr3 << endl;
