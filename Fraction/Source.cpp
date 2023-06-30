@@ -90,17 +90,10 @@ public:
 	}
 	Fraction& Reduce() //Сокращение дроби
 	{
-		int t = 1;
-		for (int i = Num; i >= 2; i--)
-		{
-			if (Num % i == 0 && Den % i == 0)
-			{
-				t = i;
-				break;
-			}
-		}
-		Num = Num / t;
-		Den = Den / t;
+		int i;
+		for (i = Num; i >= 2; i--) if (Num % i == 0 && Den % i == 0) break;
+		Num = Num / i;
+		Den = Den / i;
 		return *this;
 	}
 	Fraction inverted()const
