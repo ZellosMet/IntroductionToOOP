@@ -301,7 +301,6 @@ char* Shrink(char* str)
 void main()
 {
 	setlocale(LC_ALL, "ru");
-	bool b;
 	Fraction Fr1;
 	Fraction Fr2;
 	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
