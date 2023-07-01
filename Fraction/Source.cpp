@@ -67,6 +67,14 @@ public:
 		this->Num = Num;
 		this->Den = Den;	
 	}
+	Fraction(double value) //Конструктор с точностью по умолчанию
+	{
+		int Deg = 3;
+		Int = value;
+		Num = (value - Int) * pow(10, Deg);
+		Den = pow(10, Deg);
+		Reduce();
+	} 
 	Fraction(const Fraction& other) // Конструктор копирования
 	{
 		Int = other.Int;
@@ -96,7 +104,7 @@ public:
 		Den /= i;
 		return *this;
 	}
-	Fraction inverted()const
+	Fraction Inverted()const
 	{
 		Fraction inverted = *this;
 		inverted.ToImproper();
@@ -213,7 +221,7 @@ Fraction operator/(Fraction left, Fraction right)
 {
 	left.ToImproper();
 	right.ToImproper();
-	return left * right.inverted();
+	return left * right.Inverted();
 }
 
 // Перегрузка потока
@@ -226,37 +234,55 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 }
 istream& operator>>(istream& is, Fraction& obj)
 {	
-	int tmp = 0;
+	bool chk_doub = false;
 	const int SIZE = 256;
 	char fraction[SIZE];
 	is.getline(fraction, SIZE);
-	for (int i = 0; i < fraction[i]; i++)
-	{
-		if (fraction[i]==' ') tmp++;
-		else if (fraction[i] < '0' || fraction[i] > '9')
+	for (int i = 0; fraction[i]; i++) //Проверка числа на double
+		if (fraction[i] == '.')
 		{
-			cout << "Введены некорректные данные\n"; //???
-			return is;
+			chk_doub = true; break; 
 		}
-	}
-	if (tmp == 2) 
-	{
+	if (chk_doub)
+	{	
+		int i;
 		obj.set_Int(ToIntNumber(fraction));
+		for (i = 0; fraction[i]; i++) {}; //Определение точности
 		obj.set_Num(ToIntNumber(fraction));
-		obj.set_Den(ToIntNumber(fraction));
+		obj.set_Den(pow(10, i));
+		obj.Reduce();
 	}
-	else if (tmp == 1) 
+	else
 	{
-		obj.set_Num(ToIntNumber(fraction));
-		obj.set_Den(ToIntNumber(fraction));		
-	}
-	else if (tmp == 0)
-	{
-		obj.set_Int(ToIntNumber(fraction));
-	}	
-	else 
-	{
-		cout << "Введено слишком много переменных\n"; //???
+		int space = 0;
+		for (int i = 0; i < fraction[i]; i++) //Проверка числа на корректность и подсчёт входных параметров
+		{
+			if (fraction[i]==' ') space++;
+			else if (fraction[i] < '0' || fraction[i] > '9')
+			{
+				cout << "Введены некорректные данные\n";
+				return is;
+			}
+		}
+		if (space == 2)
+		{
+			obj.set_Int(ToIntNumber(fraction));
+			obj.set_Num(ToIntNumber(fraction));
+			obj.set_Den(ToIntNumber(fraction));
+		}
+		else if (space == 1)
+		{
+			obj.set_Num(ToIntNumber(fraction));
+			obj.set_Den(ToIntNumber(fraction));		
+		}
+		else if (space == 0)
+		{
+			obj.set_Int(ToIntNumber(fraction));
+		}	
+		else 
+		{
+			cout << "Введено слишком много переменных\n";
+		}
 	}
 	return is;
 }
@@ -276,7 +302,7 @@ int ToIntNumber(char* str)
 	int num = 0;
 	for (int i = 0; str[i]; i++)
 	{
-		if (str[i]==' ') break;
+		if (str[i]==' ' || str[i] == '.') break;
 		num *= 10;
 		num += str[i] - '0';
 	}
@@ -285,7 +311,9 @@ int ToIntNumber(char* str)
 }
 char* Shrink(char* str)
 {
-	while (str[0] != ' ' && str[1] !=0) for (int j = 0; str[j]; j++) str[j] = str[j + 1];
+	while ((str[0] != ' ' && str[0] != '.') && str[1] !=0) 
+		for (int j = 0; str[j]; j++) 
+			str[j] = str[j + 1];
 	for (int i = 0; str[i]; i++) str[i] = str[i + 1];
 	return str;
 }
