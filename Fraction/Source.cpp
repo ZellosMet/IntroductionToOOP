@@ -111,7 +111,7 @@ public:
 		std::swap(inverted.Num, inverted.Den);
 		return inverted;	
 	}
-	double FractionToDexFraction()
+	double FractionToDecFraction()
 	{
 		double dexfraction;
 		return dexfraction = (double)Num / (double)Den + Int;
@@ -351,5 +351,5 @@ void main()
 	Fr1 == Fr2 ? cout << "Дроби равны" : (Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй");
 	cout << endl;
 	double a;
-	cout << (a = Fr1.FractionToDexFraction());
+	cout << (a = Fr1.FractionToDecFraction());
 }
