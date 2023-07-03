@@ -69,10 +69,10 @@ public:
 	}
 	Fraction(double value) //Конструктор с точностью по умолчанию
 	{
-		int Deg = 3;
+		int precision = 3;
 		Int = value;
-		Num = (value - Int) * pow(10, Deg);
-		Den = pow(10, Deg);
+		Num = (value - Int) * pow(10, precision);
+		Den = pow(10, precision);
 		Reduce();
 	} 
 	Fraction(const Fraction& other) // Конструктор копирования
@@ -110,6 +110,11 @@ public:
 		inverted.ToImproper();
 		std::swap(inverted.Num, inverted.Den);
 		return inverted;	
+	}
+	double FractionToDexFraction()
+	{
+		double dexfraction;
+		return dexfraction = (double)Num / (double)Den + Int;
 	}
 
 	// Перегрузка присваивания
@@ -235,7 +240,7 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 istream& operator>>(istream& is, Fraction& obj)
 {	
 	bool chk_doub = false;
-	const int SIZE = 256;
+	const int SIZE = 10;
 	char fraction[SIZE];
 	is.getline(fraction, SIZE);
 	for (int i = 0; fraction[i]; i++) //Проверка числа на double
@@ -344,4 +349,7 @@ void main()
 	Fr2*=5;
 	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
 	Fr1 == Fr2 ? cout << "Дроби равны" : (Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй");
+	cout << endl;
+	double a;
+	cout << (a = Fr1.FractionToDexFraction());
 }
