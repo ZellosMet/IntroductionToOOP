@@ -1,11 +1,11 @@
-#include<iostream>
+п»ї#include<iostream>
 
 class Strings
 {
 	char* str;
 	int size = 0;
 public:
-//Конструкторы
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹
 	Strings()
 	{
 		char* str = new char[80]{};
@@ -30,12 +30,12 @@ public:
 		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
 		this->str[size] = '\0';
 	}
-//Геттры
+//Р“РµС‚С‚СЂС‹
 	int get_size()const
 	{
 		return size;
 	}
-//Операторы
+//РћРїРµСЂР°С‚РѕСЂС‹
 	Strings& operator=(const int size)
 	{
 		char* str = new char[size]{};
@@ -52,14 +52,14 @@ public:
 	{
 		return str[i];
 	}
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	~Strings()
 	{
 		delete this->str;
 	}
 };
 
-//Перегрузка операторов
+//РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ
 std::ostream& operator<<(std::ostream& os, const Strings& str)
 {
 	for (int i = 0; i < str.get_size(); i++) std::cout << str[i];
