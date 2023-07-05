@@ -5,6 +5,11 @@ class Strings
 	char* str;
 	int size = 0;
 public:
+//Геттеры
+	int get_size()const
+	{
+		return size;
+	}
 //Конструкторы
 	Strings() //Конструктор поумолчанию
 	{
@@ -22,14 +27,12 @@ public:
 		this->size = strlen(str);
 		this->str = new char[size+1] {};
 		for (int i = 0; i < size; i++) this->str[i] = str[i];
-		this->str[size] = '\0';
 	}
 	Strings(const Strings& str) //Конструктор копирования
 	{
 		this-> size = strlen(str.str);
 		this->str = new char[size+1] {};
 		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
-		this->str[size] = '\0';
 	}
 	Strings(Strings&& str)noexcept //Конструктор переноса
 	{
@@ -37,11 +40,6 @@ public:
 		this->size = str.size;
 		str.str = nullptr;
 		str.size = 0;
-	}
-//Геттры
-	int get_size()const
-	{
-		return size;
 	}
 //Операторы
 	Strings& operator=(const int size)
@@ -54,7 +52,6 @@ public:
 		this->size = strlen(str);
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++) this->str[i] = str[i];
-		this->str[size] = '\0';
 	}
 	char& operator[](char i)const
 	{
@@ -68,11 +65,6 @@ public:
 };
 
 //Перегрузка операторов
-std::ostream& operator<<(std::ostream& os, const Strings& str)
-{
-	for (int i = 0; i < str.get_size(); i++) std::cout << str[i];
-	return os;
-}
 Strings operator+(const Strings& left, const Strings& right)
 {
 	Strings concate = left.get_size() + right.get_size() + 1;
@@ -81,6 +73,11 @@ Strings operator+(const Strings& left, const Strings& right)
 	for (int j = 0; j < right.get_size(); j++, i++) concate[i] = right[j];
 	concate[left.get_size() + right.get_size()] = '\0';
 	return concate;
+}
+std::ostream& operator<<(std::ostream& os, const Strings& str)
+{
+	for (int i = 0; i < str.get_size(); i++) std::cout << str[i];
+	return os;
 }
 
 void main()
