@@ -11,12 +11,7 @@ public:
 		return size;
 	}
 //Конструкторы
-	Strings() //Конструктор поумолчанию
-	{
-		char* str = new char[80]{};
-		this->str = str;
-	}
-	explicit Strings(int size) //Конструктор с параметром размера строки
+	explicit Strings(int size = 80) //Конструктор с параметром размера строки
 	{
 		this->size = size;
 		char* str = new char[size] {};
@@ -55,7 +50,7 @@ public:
 //Деструктор
 	~Strings()
 	{
-		delete this->str;
+		delete[] str;
 	}
 };
 
