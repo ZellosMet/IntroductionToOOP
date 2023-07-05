@@ -16,7 +16,7 @@ public:
 		char* str = new char[80]{};
 		this->str = str;
 	}
-	Strings(int size) //Конструктор с параметром размера строки
+	explicit Strings(int size) //Конструктор с параметром размера строки
 	{
 		this->size = size;
 		char* str = new char[size] {};
@@ -42,11 +42,6 @@ public:
 		str.size = 0;
 	}
 //Операторы
-	Strings& operator=(const int size)
-	{
-		char* str = new char[size]{};
-		return *this;
-	}
 	Strings& operator=(const char *str)
 	{
 		this->size = strlen(str);
@@ -67,11 +62,10 @@ public:
 //Перегрузка операторов
 Strings operator+(const Strings& left, const Strings& right)
 {
-	Strings concate = left.get_size() + right.get_size() + 1;
+	Strings concate = Strings(left.get_size() + right.get_size() + 1);
 	int i = 0;
 	for (; i < left.get_size(); i++) concate[i] = left[i];
 	for (int j = 0; j < right.get_size(); j++, i++) concate[i] = right[j];
-	concate[left.get_size() + right.get_size()] = '\0';
 	return concate;
 }
 std::ostream& operator<<(std::ostream& os, const Strings& str)
@@ -84,7 +78,7 @@ void main()
 {
 	setlocale(LC_ALL, "ru");
 	Strings str1;
-	Strings str2 = 5;
+	Strings str2 = (Strings)5;
 	Strings str3 = "Hello";
 	std::cout << "Первая строка: " << str3 << std::endl;
 	Strings str4 = "World";

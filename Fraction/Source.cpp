@@ -48,7 +48,7 @@ public:
 		this->Num = 0;
 		this->Den = 1;
 	}
-	Fraction(int Int) // С одним параметром(целое)
+	explicit Fraction(int Int) // С одним параметром(целое)
 	{
 		this->Int = Int;
 		this->Num = 0;
@@ -69,7 +69,7 @@ public:
 	}
 	Fraction(double value) //Конструктор с точностью по умолчанию
 	{
-		int precision = 5;
+		int precision = 9;
 		Int = value;
 		Num = (value - Int) * pow(10, precision);
 		Den = pow(10, precision);
@@ -80,6 +80,11 @@ public:
 		Int = other.Int;
 		Num = other.Num;
 		Den = other.Den;
+	}
+
+	operator double()
+	{
+		return (double)Num / Den + Int;
 	}
 
 	// Методы
@@ -326,6 +331,7 @@ char* Shrink(char* str)
 void main()
 {
 	setlocale(LC_ALL, "ru");
+	/*
 	Fraction Fr1;
 	Fraction Fr2;
 	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
@@ -352,4 +358,9 @@ void main()
 	cout << endl;
 	double a;
 	cout << (a = Fr1.FractionToDecFraction());
+	*/
+	Fraction B(2, 3, 4);
+	cout << B << endl;
+	double b = B;
+	cout << b << endl;
 }
