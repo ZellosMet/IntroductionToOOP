@@ -69,7 +69,7 @@ public:
 	}
 	Fraction(double value) //Конструктор с точностью по умолчанию
 	{
-		int precision = 9;
+		int precision = 5;
 		Int = value;
 		Num = (value - Int) * pow(10, precision);
 		Den = pow(10, precision);
@@ -331,7 +331,7 @@ char* Shrink(char* str)
 void main()
 {
 	setlocale(LC_ALL, "ru");
-	/*
+	
 	Fraction Fr1;
 	Fraction Fr2;
 	cout << "Введите значения первой дроби(Целое, числитель, знаменатель)\n";
@@ -352,15 +352,8 @@ void main()
 	cout << "Возведение первой дроби в степень 3" << endl << Fr1 << endl;
 	Fr1++;
 	cout << "Инкримент первой дроби" << endl << Fr1 << endl;
-	Fr2*=5;
-	cout << "*= 5 для второй дроби" << endl << Fr2 << endl;
 	Fr1 == Fr2 ? cout << "Дроби равны" : (Fr1 > Fr2 ? cout << "Первая дробь больше второй" : cout << "Первая дробь меньше второй");
 	cout << endl;
 	double a;
-	cout << (a = Fr1.FractionToDecFraction());
-	*/
-	Fraction B(2, 3, 4);
-	cout << B << endl;
-	double b = B;
-	cout << b << endl;
+	cout << (a = Fr1.FractionToDecFraction());	
 }
