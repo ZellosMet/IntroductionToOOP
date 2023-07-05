@@ -69,7 +69,7 @@ public:
 	}
 	Fraction(double value) //Конструктор с точностью по умолчанию
 	{
-		int precision = 3;
+		int precision = 5;
 		Int = value;
 		Num = (value - Int) * pow(10, precision);
 		Den = pow(10, precision);
