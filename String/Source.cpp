@@ -75,7 +75,7 @@ std::ostream& operator<<(std::ostream& os, const Strings& str)
 }
 Strings operator+(const Strings& left, const Strings& right)
 {
-	Strings concate = left.get_size() + right.get_size() + 2;
+	Strings concate = left.get_size() + right.get_size() + 1;
 	int i = 0;
 	for (; i < left.get_size(); i++) concate[i] = left[i];
 	for (int j = 0; j < right.get_size(); j++, i++) concate[i] = right[j];
