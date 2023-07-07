@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<Windows.h>
 
 class Strings
 {
@@ -15,13 +16,13 @@ public:
 		return str;
 	}
 //Конструкторы
-	explicit Strings(int size = 80) //Конструктор с параметром размера строки
+	explicit Strings(int size = 80) //Универсальный конструктор для выделения памяти
 	{
 		this->size = size;
 		char* str = new char[size] {};
 		this->str = str;
 	}
-	Strings(const char *str) //Конструктор для с пораметром строки
+	Strings(const char *str) //Конструктор для ввода строки
 	{
 		this->size = strlen(str);
 		this->str = new char[size+1] {};
@@ -29,7 +30,7 @@ public:
 	}
 	Strings(const Strings& str) //Конструктор копирования
 	{
-		this-> size = strlen(str.str);
+		this->size = strlen(str.str);
 		this->str = new char[size+1] {};
 		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
 	}
@@ -40,16 +41,12 @@ public:
 		str.str = nullptr;
 		str.size = 0;
 	}
-//Операторы
+//Перегрузка операторов в классе
 	Strings& operator=(const char *str)
 	{
 		this->size = strlen(str);
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++) this->str[i] = str[i];
-	}
-	char& operator[](char i)const
-	{
-		return str[i];
 	}
 //Деструктор
 	~Strings()
@@ -63,18 +60,24 @@ Strings operator+(const Strings& left, const Strings& right)
 {
 	Strings concate = Strings(left.get_size() + right.get_size() + 1);
 	int i = 0;
-	for (; i < left.get_size(); i++) concate[i] = left[i];
-	for (int j = 0; j < right.get_size(); j++, i++) concate[i] = right[j];
+	for (; i < left.get_size(); i++) concate.get_str()[i] = left.get_str()[i];
+	for (int j = 0; j < right.get_size(); j++, i++) concate.get_str()[i] = right.get_str()[j];
 	return concate;
 }
 std::ostream& operator<<(std::ostream& os, const Strings& str)
 {
 	return os << str.get_str();
 }
+std::istream& operator>>(std::istream& is, Strings& str)
+{
+	return is.getline(str.get_str(), str.get_size());	
+}
 
 void main()
 {
-	setlocale(LC_ALL, "ru");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
 	Strings str1;
 	Strings str2 = (Strings)5;
 	Strings str3 = "Hello";
@@ -83,4 +86,7 @@ void main()
 	std::cout << "Первая строка: " << str4 << std::endl;
 	Strings str5 = str3 + str4;
 	std::cout << "Конкатенация строк: " << str5 << std::endl;
+	Strings str6;
+	std::cin >> str6;
+	std::cout << "Вы ввели строку: " << str6;
 }
