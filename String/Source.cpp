@@ -10,6 +10,10 @@ public:
 	{
 		return size;
 	}
+	char* get_str()const
+	{
+		return str;
+	}
 //Конструкторы
 	explicit Strings(int size = 80) //Конструктор с параметром размера строки
 	{
@@ -65,8 +69,7 @@ Strings operator+(const Strings& left, const Strings& right)
 }
 std::ostream& operator<<(std::ostream& os, const Strings& str)
 {
-	for (int i = 0; i < str.get_size(); i++) std::cout << str[i];
-	return os;
+	return os << str.get_str();
 }
 
 void main()
