@@ -82,15 +82,14 @@ public:
 		char buffer[SIZE] = {};
 		is.getline(buffer, SIZE);
 		int number[3] = {};
-		int n = 0;
+		int i = 0;
 		char delimiters[] = " ";
-		for (char* pch = std::strtok(buffer, delimiters); pch; pch = std::strtok(NULL, delimiters))
-			number[n++] = std::atoi(pch);
-		switch (n)
+		for (char* pch = std::strtok(buffer, delimiters); pch; pch = std::strtok(NULL, delimiters)) number[i++] = std::atoi(pch);
+		switch (i)
 		{
 		case 1: obj = Vector(number[0]); break;
 		case 2: obj = Vector(number[0], number[1]); break;
-		case 3: obj = Vector(number[0], number[1], number[2]);
+		case 3: obj = Vector(number[0], number[1], number[2]); break;
 		}
 		return is;
 	}
@@ -100,6 +99,8 @@ void main()
 	setlocale(LC_ALL, "ru");
 
 	Vector V1;
+	Vector V2 = 5;
 	std::cout << "¬ведите координаты ветора: "; std::cin >> V1;
-	std::cout << V1;
+	std::cout << V1 << std::endl;
+	std::cout << V2 << std::endl;
 }
