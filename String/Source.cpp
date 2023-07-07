@@ -4,14 +4,18 @@
 class Strings
 {
 	char* str;
-	int size = 0;
+	int size;
 public:
 //Геттеры
 	int get_size()const
 	{
 		return size;
 	}
-	char* get_str()const
+	const char* get_str()const
+	{
+		return str;
+	}
+	char* get_str()
 	{
 		return str;
 	}
@@ -24,9 +28,9 @@ public:
 	}
 	Strings(const char *str) //Конструктор для ввода строки
 	{
-		this->size = strlen(str);
-		this->str = new char[size+1] {};
-		for (int i = 0; i < size; i++) this->str[i] = str[i];
+		this->size = strlen(str)+1;
+		this->str = new char[size] {};
+		for (int i = 0; str[i]; i++) this->str[i] = str[i];
 	}
 	Strings(const Strings& str) //Конструктор копирования
 	{
@@ -42,12 +46,23 @@ public:
 		str.size = 0;
 	}
 //Перегрузка операторов в классе
-	Strings& operator=(Strings& str)
+	Strings& operator=(const Strings& str)
 	{
+		if(this == &str) return *this;
+		delete[] this->str;
 		this->size = strlen(str.str);
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
+		return *this;
 	}
+char& operator[](int i)
+{
+	return str[i];
+}
+char operator[](int i)const
+{
+	return str[i];
+}
 //Деструктор
 	~Strings()
 	{
@@ -58,10 +73,13 @@ public:
 //Перегрузка операторов
 Strings operator+(const Strings& left, const Strings& right)
 {
-	Strings concate(left.get_size() + right.get_size() + 1);
+	Strings concate(left.get_size() + right.get_size() - 1);
 	int i = 0;
-	for (; i < left.get_size(); i++) concate.get_str()[i] = left.get_str()[i];
-	for (int j = 0; j < right.get_size(); j++, i++) concate.get_str()[i] = right.get_str()[j];
+	for (; i < left.get_size(); i++)
+		concate[i] = left[i];
+	i--;
+	for (int j = 0; j < right.get_size(); j++, i++) 
+		concate[i] = right[j];
 	return concate;
 }
 std::ostream& operator<<(std::ostream& os, const Strings& str)
@@ -84,8 +102,9 @@ void main()
 	std::cout << "Первая строка: " << str3 << std::endl;
 	Strings str4 = "World";
 	std::cout << "Первая строка: " << str4 << std::endl;
-	Strings str5 = str3 + str4;
+	Strings str5 = str3 + " " + str4;
 	std::cout << "Конкатенация строк: " << str5 << std::endl;
+	std::cout << "Введите строку: " << std::endl;
 	Strings str6;
 	std::cin >> str6;
 	std::cout << "Вы ввели строку: " << str6;
