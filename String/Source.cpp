@@ -42,11 +42,11 @@ public:
 		str.size = 0;
 	}
 //Перегрузка операторов в классе
-	Strings& operator=(const char *str)
+	Strings& operator=(Strings& str)
 	{
-		this->size = strlen(str);
+		this->size = strlen(str.str);
 		this->str = new char[size] {};
-		for (int i = 0; i < size; i++) this->str[i] = str[i];
+		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
 	}
 //Деструктор
 	~Strings()
@@ -58,7 +58,7 @@ public:
 //Перегрузка операторов
 Strings operator+(const Strings& left, const Strings& right)
 {
-	Strings concate = Strings(left.get_size() + right.get_size() + 1);
+	Strings concate(left.get_size() + right.get_size() + 1);
 	int i = 0;
 	for (; i < left.get_size(); i++) concate.get_str()[i] = left.get_str()[i];
 	for (int j = 0; j < right.get_size(); j++, i++) concate.get_str()[i] = right.get_str()[j];

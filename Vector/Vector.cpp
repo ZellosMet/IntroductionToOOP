@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 #include<iostream>
 
 class Vector
@@ -7,7 +7,7 @@ class Vector
 	double y;
 	double z;
 public:
-	//Геттеры
+	//Р“РµС‚С‚РµСЂС‹
 	double get_x()const
 	{
 		return x;
@@ -21,7 +21,7 @@ public:
 		return z;
 	}
 
-	//Сеттеры
+	//РЎРµС‚С‚РµСЂС‹
 	void set_x(double x)
 	{
 		this->x = x;
@@ -35,33 +35,33 @@ public:
 		this->z = z;
 	}
 
-	//Конструторы
-	Vector() //Конструктор поумолчанию
+	//РљРѕРЅСЃС‚СЂСѓС‚РѕСЂС‹
+	Vector() //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕСѓРјРѕР»С‡Р°РЅРёСЋ
 	{
 		this->x = 0;
 		this->y = 0;
 		this->z = 0;
 	}
-	Vector(double x) //Конструктор с одним параметром
+	Vector(double x) //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РѕРґРЅРёРј РїР°СЂР°РјРµС‚СЂРѕРј
 	{
 		this->x = x;
 		this->y = 0;
 		this->z = 0;
 	}
-	Vector(double x, double y) //Конструктор с двумя параметрами
+	Vector(double x, double y) //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РґРІСѓРјСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 	{
 		this->x = x;
 		this->y = y;
 		this->z = 0;
 	}
-	Vector(double x, double y, double z) //Конструктор с тремя параметрами
+	Vector(double x, double y, double z) //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ С‚СЂРµРјСЏ РїР°СЂР°РјРµС‚СЂР°РјРё
 	{
 		this->x = x;
 		this->y = y;
 		this->z = z;
 	}
 
-//Операторы класса
+//РћРїРµСЂР°С‚РѕСЂС‹ РєР»Р°СЃСЃР°
 	Vector& operator=(const Vector& other)
 	{
 		x = other.x;
@@ -71,7 +71,7 @@ public:
 	}
 };
 
-//Перегрузка операторов
+//РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ
 	std::ostream& operator<<(std::ostream& os, const Vector& obj)
 	{
 		return os << "(" << obj.get_x() << ", " << obj.get_y() << ", " << obj.get_z() << ")";
@@ -100,7 +100,7 @@ void main()
 
 	Vector V1;
 	Vector V2 = 5;
-	std::cout << "Введите координаты ветора: "; std::cin >> V1;
+	std::cout << "Р’РІРµРґРёС‚Рµ РєРѕРѕСЂРґРёРЅР°С‚С‹ РІРµС‚РѕСЂР°: "; std::cin >> V1;
 	std::cout << V1 << std::endl;
 	std::cout << V2 << std::endl;
 }
