@@ -57,14 +57,12 @@ public:
 	}
 	Strings& operator=(Strings&& str)
 	{
-		if (this != &str)
-		{
-			delete[] this->str;
-			this->str = str.str;
-			size = str.size;
-			str.str = nullptr;
-			str.str = 0;
-		}
+		if (this == &str) return *this;
+		delete[] this->str;
+		str = str.str;
+		size = str.size;
+		str.str = nullptr;
+		str.size = 0;
 		return *this;
 	}
 char& operator[](int i)
