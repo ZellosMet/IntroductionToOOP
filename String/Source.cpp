@@ -59,7 +59,7 @@ public:
 	{
 		if (this == &str) return *this;
 		delete[] this->str;
-		this ->str = str.str;
+		this->str = str.str;
 		size = str.size;
 		str.str = nullptr;
 		str.size = 0;
