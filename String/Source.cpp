@@ -80,6 +80,36 @@ Strings operator+(const Strings& left, const Strings& right)
 	for (int j = 0; j < right.get_size(); j++, i++) concate[i] = right[j];
 	return concate;
 }
+Strings operator-(const Strings& left, const Strings& right)
+{
+	const int n = 256;
+	char buff[n] = {};
+	int k = 0;
+	for (int i = 0; left[i]; i++)
+	{
+		for (int j = 0; right[j]; j++)
+		{
+			if (left[i] != right[j])
+			{
+				buff[k] = left[i];
+				continue;
+			}
+			else
+			{
+				buff[k] = 0;
+				k--;
+				break;
+			}
+		}
+		k++;
+	}
+	Strings diff(k+1);
+	for (int i = 0; buff[i]; i++)
+	{
+		diff[i] = buff[i];
+	}
+	return diff;
+}
 std::ostream& operator<<(std::ostream& os, const Strings& str)
 {
 	return os << str.get_str();
@@ -102,8 +132,10 @@ void main()
 	std::cout << "Первая строка: " << str4 << std::endl;
 	Strings str5 = str3 + " " + str4;
 	std::cout << "Конкатенация строк: " << str5 << std::endl;
-	std::cout << "Введите строку: " << std::endl;
-	Strings str6;
-	std::cin >> str6;
-	std::cout << "Вы ввели строку: " << str6;
+	//std::cout << "Введите строку: " << std::endl;
+	//Strings str6;
+	//std::cin >> str6;
+	//std::cout << "Вы ввели строку: " << str6;
+	Strings str6 = str3 - str4;
+	std::cout << "Результат разности строк: " << str6 << std::endl;
 }
