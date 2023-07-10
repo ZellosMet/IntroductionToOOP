@@ -59,7 +59,7 @@ public:
 	{
 		if (this == &str) return *this;
 		delete[] this->str;
-		str = str.str;
+		this ->str = str.str;
 		size = str.size;
 		str.str = nullptr;
 		str.size = 0;
@@ -140,7 +140,7 @@ void main()
 	std::cout << "Первая строка: " << str3 << std::endl;
 	Strings str4 = "World";
 	std::cout << "Первая строка: " << str4 << std::endl;
-	Strings str5 = str3 + " " + str4;
+	Strings str5 = str3 + str4;
 	std::cout << "Конкатенация строк: " << str5 << std::endl;
 	//std::cout << "Введите строку: " << std::endl;
 	//Strings str6;
