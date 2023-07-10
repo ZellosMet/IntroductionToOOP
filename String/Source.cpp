@@ -55,6 +55,18 @@ public:
 		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
 		return *this;
 	}
+	Strings& operator=(Strings&& str)
+	{
+		if (this != &str)
+		{
+			delete[] this->str;
+			this->str = str.str;
+			size = str.size;
+			str.str = nullptr;
+			str.str = 0;
+		}
+		return *this;
+	}
 char& operator[](int i)
 {
 	return str[i];
