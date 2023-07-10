@@ -65,14 +65,14 @@ public:
 		str.size = 0;
 		return *this;
 	}
-char& operator[](int i)
-{
-	return str[i];
-}
-char operator[](int i)const
-{
-	return str[i];
-}
+	char& operator[](int i)
+	{
+		return str[i];
+	}
+	char operator[](int i)const
+	{
+		return str[i];
+	}
 //Деструктор
 	~Strings()
 	{
