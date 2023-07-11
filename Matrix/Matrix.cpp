@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 
 int** Allocate(const int rows, const int cols);
 void FillMatrix(int** matrix, const int rows, const int cols);
@@ -10,7 +10,7 @@ class Matrix
 	int** matrix;
 public:
 
-	//Геттеры/Сеттеры
+	//Р“РµС‚С‚РµСЂС‹/РЎРµС‚С‚РµСЂС‹
 	int get_cols()const
 	{
 		return cols;
@@ -32,14 +32,14 @@ public:
 		this->rows = rows;
 	}
 
-//Конструкторы
+//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂС‹
 	Matrix()
 	{
 		rows = 3;
 		cols = 3; 
 		matrix = Allocate(rows, cols);
 		FillMatrix(matrix, rows, cols);
-		std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
+		std::cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕСѓРјРѕР»С‡Р°РЅРёСЋ\t\t" << this << std::endl;
 	}
 	Matrix(int rows, int cols)
 	{
@@ -47,7 +47,7 @@ public:
 		this->cols = cols;
 		matrix = Allocate(rows, cols);
 		FillMatrix(matrix, rows, cols);
-		std::cout << "Конструктор с параметрами\t" << this << std::endl;
+		std::cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё\t" << this << std::endl;
 
 	}
 	Matrix(Matrix& matrix)
@@ -58,7 +58,7 @@ public:
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < cols; j++)
 				this->matrix[i][j] = matrix[i][j];
-		std::cout << "Конструктор копирования\t" <<  this <<std::endl;
+		std::cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ\t" <<  this <<std::endl;
 	}
 	Matrix(Matrix&& matrix)noexcept
 	{
@@ -70,10 +70,10 @@ public:
 		matrix.matrix = nullptr;
 		matrix.rows = 0;
 		matrix.cols = 0;
-		std::cout << "Конструктор перенома\t" << this <<std::endl;
+		std::cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРµСЂРµРЅРѕРјР°\t" << this <<std::endl;
 	}
 
-//Перегрузка операторов
+//РџРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ
 	Matrix& operator=(const Matrix& matrix)
 	{
 		if (this == &matrix) return *this; //??
@@ -88,7 +88,7 @@ public:
 				this->matrix[i][j] = matrix[i][j];
 		return *this;
 	}
-	Matrix& operator=(Matrix&& matrix)noexcept //Ругается на брейкпоинт
+	Matrix& operator=(Matrix&& matrix)noexcept //Р СѓРіР°РµС‚СЃСЏ РЅР° Р±СЂРµР№РєРїРѕРёРЅС‚
 	{
 		if (this == &matrix) return *this; //??
 		for (int i = 0; i < rows; i++)
@@ -113,7 +113,7 @@ public:
 		return matrix[i];
 	}
 
-//Деструктор
+//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
 	~Matrix()
 	{
 		for (int i = 0; i < rows; i++)
@@ -121,12 +121,12 @@ public:
 			delete[] matrix[i];
 		}
 		delete[] matrix;
-		std::cout << "Деструктор\t\t\t" << this <<std::endl;
+		std::cout << "Р”РµСЃС‚СЂСѓРєС‚РѕСЂ\t\t\t" << this <<std::endl;
 	}
 
 };
 
-//Перегрузка за классом
+//РџРµСЂРµРіСЂСѓР·РєР° Р·Р° РєР»Р°СЃСЃРѕРј
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
 {
 	for (int i = 0; i < matrix.get_rows(); i++)
@@ -140,7 +140,7 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
 	return os;
 }
 
-//Функции
+//Р¤СѓРЅРєС†РёРё
 int** Allocate(const int rows, const int cols)
 {
 	int** matrix = new int* [rows] {};
@@ -163,9 +163,9 @@ void main()
 	setlocale(LC_ALL, "ru");
 
 	Matrix M1;
-	std::cout << "Первая матрица:" << std::endl << M1 << std::endl;
+	std::cout << "РџРµСЂРІР°СЏ РјР°С‚СЂРёС†Р°:" << std::endl << M1 << std::endl;
 	Matrix M2(3, 3);
-	std::cout << "Вторая матрица:" << std::endl << M2 << std::endl;
+	std::cout << "Р’С‚РѕСЂР°СЏ РјР°С‚СЂРёС†Р°:" << std::endl << M2 << std::endl;
 	M2 = M1;
-	std::cout << "Вторая матрица:" << std::endl << M2 << std::endl;
+	std::cout << "Р’С‚РѕСЂР°СЏ РјР°С‚СЂРёС†Р°:" << std::endl << M2 << std::endl;
 }
