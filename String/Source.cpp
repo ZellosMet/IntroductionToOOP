@@ -3,8 +3,8 @@
 
 class Strings
 {
-	char* str;
 	int size;
+	char* str;
 public:
 //Геттеры
 	int get_size()const
@@ -20,30 +20,33 @@ public:
 		return str;
 	}
 //Конструкторы
-	explicit Strings(int size = 80) //Универсальный конструктор для выделения памяти
+	explicit Strings(int size = 80) :size(size), str(new char[size]{}) //Универсальный конструктор для выделения памяти
 	{
-		this->size = size;
-		char* str = new char[size] {};
-		this->str = str;
+		//this->size = size;
+		//char* str = new char[size] {};
+		//std::cout << "конструктор\t" << this << std::endl;
 	}
-	Strings(const char *str) //Конструктор для ввода строки
+	Strings(const char* str) :size(strlen(str) + 1), str(new char[size]{})//Конструктор для ввода строки
 	{
-		this->size = strlen(str)+1;
-		this->str = new char[size] {};
+		//this->size = strlen(str)+1;
+		//this->str = new char[size] {};
 		for (int i = 0; str[i]; i++) this->str[i] = str[i];
+		//std::cout << "конструктор\t" << this << std::endl;
 	}
-	Strings(const Strings& str) //Конструктор копирования
+	Strings(const Strings& str) :size(str.size),str(new char[size])//Конструктор копирования
 	{
-		this->size = strlen(str.str);
-		this->str = new char[size+1] {};
-		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
+		//this->size = strlen(str.str);
+		//this->str = new char[size] {};
+		for (int i = 0; i < size; i++) this->str[i] = str[i];
+		//std::cout << "конструктор\t" << this << std::endl;
 	}
-	Strings(Strings&& str)noexcept //Конструктор переноса
+	Strings(Strings&& str) :size(str.size), str(str.str) //Конструктор переноса
 	{
-		this->str = str.str;
-		this->size = str.size;
+		//this->str = str.str;
+		//this->size = str.size;
 		str.str = nullptr;
 		str.size = 0;
+		//std::cout << "конструктор\t" << this << std::endl;
 	}
 //Перегрузка операторов в классе
 	Strings& operator=(const Strings& str)
@@ -53,6 +56,7 @@ public:
 		this->size = strlen(str.str);
 		this->str = new char[size] {};
 		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
+		//std::cout << "Присваивание\t" << this << std::endl;
 		return *this;
 	}
 	Strings& operator=(Strings&& str)
@@ -63,8 +67,10 @@ public:
 		size = str.size;
 		str.str = nullptr;
 		str.size = 0;
+		//std::cout << "Присваивание\t" << this << std::endl;
 		return *this;
 	}
+
 	char& operator[](int i)
 	{
 		return str[i];
@@ -77,6 +83,7 @@ public:
 	~Strings()
 	{
 		delete[] str;
+		//std::cout << "Деструктор\t" << this <<std::endl;
 	}
 };
 
@@ -128,6 +135,7 @@ std::istream& operator>>(std::istream& is, Strings& str)
 {
 	return is.getline(str.get_str(), str.get_size());	
 }
+
 
 void main()
 {
