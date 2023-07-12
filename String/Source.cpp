@@ -22,28 +22,19 @@ public:
 //Конструкторы
 	explicit Strings(int size = 80) :size(size), str(new char[size]{}) //Универсальный конструктор для выделения памяти
 	{
-		//this->size = size;
-		//char* str = new char[size] {};
 		//std::cout << "конструктор\t" << this << std::endl;
 	}
-	Strings(const char* str) :size(strlen(str) + 1), str(new char[size]{})//Конструктор для ввода строки
-	{
-		//this->size = strlen(str)+1;
-		//this->str = new char[size] {};
+	Strings(const char* str) :Strings(strlen(str) + 1)//Конструктор для ввода строки
+	{		
 		for (int i = 0; str[i]; i++) this->str[i] = str[i];
 		//std::cout << "конструктор\t" << this << std::endl;
 	}
-	Strings(const Strings& str) :size(str.size),str(new char[size])//Конструктор копирования
+	Strings(const Strings& str) :Strings(str.str)//Конструктор копирования
 	{
-		//this->size = strlen(str.str);
-		//this->str = new char[size] {};
-		for (int i = 0; i < size; i++) this->str[i] = str[i];
 		//std::cout << "конструктор\t" << this << std::endl;
 	}
 	Strings(Strings&& str) :size(str.size), str(str.str) //Конструктор переноса
 	{
-		//this->str = str.str;
-		//this->size = str.size;
 		str.str = nullptr;
 		str.size = 0;
 		//std::cout << "конструктор\t" << this << std::endl;
