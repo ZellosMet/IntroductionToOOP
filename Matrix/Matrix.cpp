@@ -1,14 +1,13 @@
 ﻿#include<iostream>
 
-int** Allocate(const int rows, const int cols);
-void FillMatrix(int** matrix, const int rows, const int cols);
-void Clear(int** matrix, const int rows);
+double** Allocate(const int rows, const int cols);
+void Clear(double** matrix, const int rows);
 
 class Matrix
 {
 	int rows;
 	int cols;
-	int** matrix;
+	double** matrix;
 public:
 
 	//Геттеры/Сеттеры
@@ -20,7 +19,7 @@ public:
 	{
 		return rows;
 	}
-	int** get_matrix()const
+	double** get_matrix()const
 	{
 		return matrix;
 	}
@@ -40,7 +39,6 @@ public:
 		rows = 3;
 		cols = 3; 
 		matrix = Allocate(rows, cols);
-		FillMatrix(matrix, rows, cols);
 		std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
 	}
 	Matrix(int rows, int cols)
@@ -48,7 +46,6 @@ public:
 		this->rows = rows;
 		this->cols = cols;
 		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию
-		FillMatrix(matrix, rows, cols);
 		std::cout << "Конструктор с параметрами\t" << this << std::endl;
 
 	}
@@ -104,20 +101,83 @@ public:
 		std::cout << "Оператор перемещения\t\t" << std::endl;
 		return *this;
 	}
-	int* operator[](const int i)
+	Matrix& operator*=(int value)
+	{
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < cols; j++)
+				matrix[i][j] *= value;
+		}
+		return *this;
+	}
+	double* operator[](const int i)
 	{
 		return matrix[i];
 	}
-	const int* operator[](const int i)const
+	const double* operator[](const int i)const
 	{
 		return matrix[i];
 	}
 //Методы
-	void negative()
+	void Negative()
 	{	
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < cols; j++)
 				matrix[i][j] = -matrix[i][j];
+	}
+	void FillMatrix()
+	{
+		for (int i = 0; i < rows; i++)
+			for (int j = 0; j < cols; j++)
+				matrix[i][j] = rand() % 10;	
+	}
+	void InverseMatrix()
+	{
+		Matrix t_matrix(rows, cols);
+		int n = 0, m = 0, RE;
+		for (int i = 0; i < t_matrix.rows; i++)
+			for (int j = 0; j < t_matrix.cols; j++)
+				if (i==j)
+					t_matrix[i][j] = 1;
+
+		for (int k = 0; k < rows; k++)
+		{
+			RE = matrix[n][m];
+			for (int j = 0; j < rows; j++)
+			{
+				matrix[k][j] /= RE;
+				t_matrix[k][j] /= RE;
+			}
+			for (int i = k+1; i < rows; i++)
+			{
+				RE = matrix[i][k];
+				for (int j = 0; j < rows; j++)
+				{
+					matrix[i][j] -= matrix[k][j] * RE;
+					t_matrix[i][j] -= t_matrix[k][j] * RE;
+				}
+			}
+		}
+		for (int k = rows-1; k > 0; k--)
+		{
+			for (int i = k - 1; i >= 0; i--)
+			{
+				RE = matrix[i][k];
+				for (int j = 0; j < rows; j++)
+				{
+					matrix[i][j] -= matrix[k][j] * RE;
+					t_matrix[i][j] -= t_matrix[k][j] * RE;
+				}
+			}
+		}
+
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < rows; j++)
+			{
+				matrix[i][j] = t_matrix[i][j];
+			}
+		}
 	}
 //Деструктор
 	~Matrix() 
@@ -131,23 +191,45 @@ public:
 //Перегрузка за классом
 Matrix operator+(Matrix& lvalue, Matrix& rvalue)
 {
-	Matrix Sub(lvalue.get_rows(), lvalue.get_cols());
-	for (int i = 0; i < lvalue.get_rows(); i++)
-		for (int j = 0; j < lvalue.get_cols(); j++)
-			Sub[i][j] = lvalue[i][j] + rvalue[i][j];
+	Matrix Sub(lvalue.get_rows(), lvalue.get_cols()); //??
+	if (lvalue.get_rows() == rvalue.get_rows() && lvalue.get_cols() == rvalue.get_cols())
+	{
+		for (int i = 0; i < lvalue.get_rows(); i++)
+			for (int j = 0; j < lvalue.get_cols(); j++)
+				Sub[i][j] = lvalue[i][j] + rvalue[i][j];
+		return Sub;
+	}
+	std::cout << "Невозможно расчитать матрицу" << std::endl;
 	return Sub;
 }
-Matrix operator-(Matrix& lvalue, Matrix& rvalue)
+Matrix operator-(Matrix& lvalue, Matrix rvalue) // Двойное потребление памяти??
 {
-	Matrix negative = rvalue;// Двойное потребление памяти??
-	negative.negative();
-	return lvalue + negative;
+	rvalue.Negative();
+	return lvalue + rvalue;
 }
+Matrix operator*(Matrix& lvalue, Matrix& rvalue)
+{
+	Matrix Mul(lvalue.get_rows(), rvalue.get_cols());
+	if (lvalue.get_cols()==rvalue.get_rows())
+	{
+		for (int i = 0; i < lvalue.get_rows(); i++)
+			for (int j = 0; j < rvalue.get_cols(); j++)
+				for (int k =0; k < lvalue.get_cols(); k++)
+					Mul[i][j] += lvalue[i][k] * rvalue[k][j];
+		return Mul;
+	}
+	std::cout << "Невозможно расчитать матрицу" << std::endl;
+	return Mul;
+}
+//Matrix operator/(Matrix& lvalue, Matrix rvalur)
+//{
+
+//}
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
 {
 	for (int i = 0; i < matrix.get_rows(); i++)
 	{
-		for (int j = 0; j < matrix.get_rows(); j++)
+		for (int j = 0; j < matrix.get_cols(); j++)
 		{
 			os << matrix[i][j] << "\t";
 		}
@@ -157,24 +239,17 @@ std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
 }
 
 //Функции
-int** Allocate(const int rows, const int cols)
+double** Allocate(const int rows, const int cols)
 {
-	int** matrix = new int* [rows] {};
-	for (int i = 0; i < rows; i++) matrix[i] = new int[cols] {};
+	double** matrix = new double* [rows] {};
+	for (int i = 0; i < rows; i++) 
+		matrix[i] = new double[cols] {};
 	return matrix;
 }
-void FillMatrix(int** matrix, const int rows, const int cols)
-	{
-		for (int i = 0; i < rows; i++)
-			for (int j = 0; j < cols; j++)
-				matrix[i][j] = rand() % 10;
-	}
-void Clear(int** matrix, const int rows)
+void Clear(double** matrix, const int rows)
 {
 	for (int i = 0; i < rows; i++)
-	{
 		delete[] matrix[i];
-	}
 	delete[] matrix;
 }
 
@@ -183,12 +258,22 @@ void main()
 	setlocale(LC_ALL, "ru");
 
 	Matrix M1;
+	M1.FillMatrix();
 	std::cout << "Первая матрица:" << std::endl << M1 << std::endl;
 	Matrix M2(3, 3);
+	M2.FillMatrix();
 	std::cout << "Вторая матрица:" << std::endl << M2 << std::endl;
 	Matrix M3 = M1 + M2;
 	std::cout << "Третья матрица:" << std::endl << M3 << std::endl;
 	Matrix M4;
 	M4 = M1 - M2;
 	std::cout << "Четвёртая матрица:" << std::endl << M4 << std::endl;
+	Matrix M5 = M1 * M2;
+	std::cout << "Пятая матрица:" << std::endl << M5 << std::endl;
+	Matrix M6;
+	M6.FillMatrix();
+	std::cout << "Шестая матрица:" << std::endl << M6 << std::endl;
+	//M6 = M1 / M2;
+	M6.InverseMatrix();
+	std::cout << "инверсная матрица:" << std::endl << M6 << std::endl;
 }
