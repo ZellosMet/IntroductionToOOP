@@ -38,7 +38,7 @@ public:
 	{
 		rows = 3;
 		cols = 3; 
-		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию??
+		matrix = Allocate(rows, cols);
 		//std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
 	}
 	Matrix(int size)
@@ -69,8 +69,6 @@ public:
 		this->matrix = matrix.matrix;
 		this->rows = matrix.rows;
 		this->cols = matrix.cols;
-		//for (int i = 0; i < rows; i++)  //Есть ли необходимость?
-			//matrix.matrix[i] = nullptr;
 		matrix.matrix = nullptr;
 		matrix.rows = 0;
 		matrix.cols = 0;
@@ -98,8 +96,6 @@ public:
 		this->matrix = matrix.matrix;
 		rows = matrix.rows;
 		cols = matrix.cols;
-		//for (int i = 0; i < rows; i++) //Есть ли необходимость?
-			//matrix.matrix[i] = nullptr;
 		matrix.matrix = nullptr;
 		matrix.rows = 0;
 		matrix.cols = 0;
@@ -192,7 +188,7 @@ public:
 //Перегрузка за классом
 Matrix operator+(Matrix& lvalue, Matrix& rvalue)
 {
-	Matrix Sub(lvalue.get_rows(), lvalue.get_cols()); //??
+	Matrix Sub(lvalue.get_rows(), lvalue.get_cols());
 	if (lvalue.get_rows() == rvalue.get_rows() && lvalue.get_cols() == rvalue.get_cols())
 	{
 		for (int i = 0; i < lvalue.get_rows(); i++)
@@ -203,7 +199,7 @@ Matrix operator+(Matrix& lvalue, Matrix& rvalue)
 	std::cout << "Невозможно расчитать матрицу" << std::endl;
 	return Sub;
 }
-Matrix operator-(Matrix& lvalue, Matrix rvalue) // Двойное потребление памяти??
+Matrix operator-(Matrix& lvalue, Matrix rvalue)
 {
 	rvalue.Negative();
 	return lvalue + rvalue;
