@@ -41,11 +41,16 @@ public:
 		matrix = Allocate(rows, cols);
 		//std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
 	}
+	Matrix(int size)
+	{
+		rows = cols = size;
+		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию??
+	}
 	Matrix(int rows, int cols)
 	{
 		this->rows = rows;
 		this->cols = cols;
-		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию
+		matrix = Allocate(rows, cols); 
 		//std::cout << "Конструктор с параметрами\t" << this << std::endl;
 
 	}
@@ -133,10 +138,10 @@ public:
 	}
 	void InverseMatrix()
 	{
-		Matrix t_matrix(rows, cols);
+		Matrix t_matrix(rows);
 		double RE;
 		for (int i = 0; i < t_matrix.rows; i++)
-			for (int j = 0; j < t_matrix.cols; j++)
+			for (int j = 0; j < t_matrix.rows; j++)
 				if (i==j)
 					t_matrix[i][j] = 1;
 
@@ -260,7 +265,7 @@ void main()
 {
 	setlocale(LC_ALL, "ru");
 
-	Matrix M1;
+	Matrix M1(3);
 	M1.FillMatrix();
 	std::cout << "Первая матрица:" << std::endl << M1 << std::endl;
 	Matrix M2(3, 3);
