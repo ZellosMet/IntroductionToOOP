@@ -38,13 +38,13 @@ public:
 	{
 		rows = 3;
 		cols = 3; 
-		matrix = Allocate(rows, cols);
+		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию??
 		//std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
 	}
 	Matrix(int size)
 	{
 		rows = cols = size;
-		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию??
+		matrix = Allocate(rows, cols); 
 	}
 	Matrix(int rows, int cols)
 	{
