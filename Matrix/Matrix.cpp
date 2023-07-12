@@ -39,14 +39,14 @@ public:
 		rows = 3;
 		cols = 3; 
 		matrix = Allocate(rows, cols);
-		std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
+		//std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
 	}
 	Matrix(int rows, int cols)
 	{
 		this->rows = rows;
 		this->cols = cols;
 		matrix = Allocate(rows, cols); //Можно ли выделятьпамять через функцию
-		std::cout << "Конструктор с параметрами\t" << this << std::endl;
+		//std::cout << "Конструктор с параметрами\t" << this << std::endl;
 
 	}
 	Matrix(const Matrix& matrix)
@@ -57,7 +57,7 @@ public:
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < cols; j++)
 				this->matrix[i][j] = matrix[i][j];
-		std::cout << "Конструктор копирования\t\t" << this <<std::endl;
+		//std::cout << "Конструктор копирования\t\t" << this <<std::endl;
 	}
 	Matrix(Matrix&& matrix)noexcept
 	{
@@ -69,7 +69,7 @@ public:
 		matrix.matrix = nullptr;
 		matrix.rows = 0;
 		matrix.cols = 0;
-		std::cout << "Конструктор переноса\t\t" << this <<std::endl;
+		//std::cout << "Конструктор переноса\t\t" << this <<std::endl;
 	}
 
 //Перегрузка операторов
@@ -83,7 +83,7 @@ public:
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < cols; j++)
 				this->matrix[i][j] = matrix[i][j];
-		std::cout << "Оператор копирования" << std::endl;
+		//std::cout << "Оператор копирования" << std::endl;
 		return *this;
 	}
 	Matrix& operator=(Matrix&& matrix)noexcept
@@ -98,7 +98,7 @@ public:
 		matrix.matrix = nullptr;
 		matrix.rows = 0;
 		matrix.cols = 0;
-		std::cout << "Оператор перемещения\t\t" << std::endl;
+		//std::cout << "Оператор перемещения\t\t" << std::endl;
 		return *this;
 	}
 	Matrix& operator*=(int value)
@@ -134,7 +134,7 @@ public:
 	void InverseMatrix()
 	{
 		Matrix t_matrix(rows, cols);
-		int n = 0, m = 0, RE;
+		double RE;
 		for (int i = 0; i < t_matrix.rows; i++)
 			for (int j = 0; j < t_matrix.cols; j++)
 				if (i==j)
@@ -142,7 +142,7 @@ public:
 
 		for (int k = 0; k < rows; k++)
 		{
-			RE = matrix[n][m];
+			RE = matrix[k][k];
 			for (int j = 0; j < rows; j++)
 			{
 				matrix[k][j] /= RE;
@@ -172,18 +172,14 @@ public:
 		}
 
 		for (int i = 0; i < rows; i++)
-		{
 			for (int j = 0; j < rows; j++)
-			{
 				matrix[i][j] = t_matrix[i][j];
-			}
-		}
 	}
 //Деструктор
 	~Matrix() 
 	{
 		Clear(matrix, rows); //Моджно ли удалять через функцию??
-		std::cout << "Деструктор\t\t\t" << this <<std::endl;
+		//std::cout << "Деструктор\t\t\t" << this <<std::endl;
 	}
 
 };
@@ -221,17 +217,24 @@ Matrix operator*(Matrix& lvalue, Matrix& rvalue)
 	std::cout << "Невозможно расчитать матрицу" << std::endl;
 	return Mul;
 }
-//Matrix operator/(Matrix& lvalue, Matrix rvalur)
-//{
-
-//}
+Matrix operator/(Matrix& lvalue, Matrix rvalue)
+{
+	if (rvalue.get_rows() == rvalue.get_cols())
+	{
+		rvalue.InverseMatrix();
+		return lvalue * rvalue;
+	}
+	Matrix Div;
+	std::cout << "Невозможно расчитать матрицу" << std::endl;
+	return Div;
+}
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix)
 {
 	for (int i = 0; i < matrix.get_rows(); i++)
 	{
 		for (int j = 0; j < matrix.get_cols(); j++)
 		{
-			os << matrix[i][j] << "\t";
+			os << matrix[i][j] << " \t";
 		}
 		os << std::endl;
 	}
@@ -264,16 +267,13 @@ void main()
 	M2.FillMatrix();
 	std::cout << "Вторая матрица:" << std::endl << M2 << std::endl;
 	Matrix M3 = M1 + M2;
-	std::cout << "Третья матрица:" << std::endl << M3 << std::endl;
+	std::cout << "Сумма матриц:" << std::endl << M3 << std::endl;
 	Matrix M4;
 	M4 = M1 - M2;
-	std::cout << "Четвёртая матрица:" << std::endl << M4 << std::endl;
+	std::cout << "Разность матрица:" << std::endl << M4 << std::endl;
 	Matrix M5 = M1 * M2;
-	std::cout << "Пятая матрица:" << std::endl << M5 << std::endl;
+	std::cout << "Произведение матриц:" << std::endl << M5 << std::endl;
 	Matrix M6;
-	M6.FillMatrix();
-	std::cout << "Шестая матрица:" << std::endl << M6 << std::endl;
-	//M6 = M1 / M2;
-	M6.InverseMatrix();
-	std::cout << "инверсная матрица:" << std::endl << M6 << std::endl;
+	M6 = M1 / M2;
+	std::cout << "Деление матриц:" << std::endl << M6 << std::endl;
 }
