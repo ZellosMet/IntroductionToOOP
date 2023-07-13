@@ -23,36 +23,15 @@ public:
 	{
 		return matrix;
 	}
-	void set_cols(int cols)
-	{
-		this->cols = cols;
-	}
-	void set_rows(int rows)
-	{
-		this->rows = rows;
-	}
-
 
 //Конструкторы
-	Matrix()
+	Matrix(int size = 2): rows(size), cols(size), matrix(Allocate(rows, cols))
 	{
-		rows = 3;
-		cols = 3; 
-		matrix = Allocate(rows, cols);
-		//std::cout << "Конструктор поумолчанию\t\t" << this << std::endl;
-	}
-	Matrix(int size)
-	{
-		rows = cols = size;
-		matrix = Allocate(rows, cols); 
-	}
-	Matrix(int rows, int cols)
-	{
-		this->rows = rows;
-		this->cols = cols;
-		matrix = Allocate(rows, cols); 
 		//std::cout << "Конструктор с параметрами\t" << this << std::endl;
-
+	}
+	Matrix(int rows, int cols) : rows(rows), cols(cols), matrix(Allocate(rows, cols))
+	{
+		//std::cout << "Конструктор с параметрами\t" << this << std::endl;
 	}
 	Matrix(const Matrix& matrix)
 	{
@@ -179,7 +158,7 @@ public:
 //Деструктор
 	~Matrix() 
 	{
-		Clear(matrix, rows); //Моджно ли удалять через функцию??
+		Clear(matrix, rows);
 		//std::cout << "Деструктор\t\t\t" << this <<std::endl;
 	}
 
@@ -225,7 +204,7 @@ Matrix operator/(Matrix& lvalue, Matrix rvalue)
 		rvalue.InverseMatrix();
 		return lvalue * rvalue;
 	}
-	Matrix Div;
+	Matrix Div(lvalue.get_rows());
 	std::cout << "Невозможно расчитать матрицу" << std::endl;
 	return Div;
 }
@@ -269,12 +248,10 @@ void main()
 	std::cout << "Вторая матрица:" << std::endl << M2 << std::endl;
 	Matrix M3 = M1 + M2;
 	std::cout << "Сумма матриц:" << std::endl << M3 << std::endl;
-	Matrix M4;
-	M4 = M1 - M2;
+	Matrix M4 = M1 - M2;
 	std::cout << "Разность матрица:" << std::endl << M4 << std::endl;
 	Matrix M5 = M1 * M2;
 	std::cout << "Произведение матриц:" << std::endl << M5 << std::endl;
-	Matrix M6;
-	M6 = M1 / M2;
+	Matrix M6 = M1 / M2;
 	std::cout << "Деление матриц:" << std::endl << M6 << std::endl;
 }
