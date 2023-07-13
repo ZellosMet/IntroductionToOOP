@@ -33,21 +33,15 @@ public:
 	{
 		//std::cout << "Конструктор с параметрами\t" << this << std::endl;
 	}
-	Matrix(const Matrix& matrix)
+	Matrix(const Matrix& matrix):Matrix(matrix.get_rows(), matrix.get_cols())
 	{
-		this->rows = matrix.get_rows();
-		this->cols = matrix.get_cols();
-		this->matrix = Allocate(rows, cols);
 		for (int i = 0; i < rows; i++)
 			for (int j = 0; j < cols; j++)
 				this->matrix[i][j] = matrix[i][j];
 		//std::cout << "Конструктор копирования\t\t" << this <<std::endl;
 	}
-	Matrix(Matrix&& matrix)noexcept
+	Matrix(Matrix&& matrix):rows(matrix.rows), cols(matrix.cols), matrix(matrix.matrix)
 	{
-		this->matrix = matrix.matrix;
-		this->rows = matrix.rows;
-		this->cols = matrix.cols;
 		matrix.matrix = nullptr;
 		matrix.rows = 0;
 		matrix.cols = 0;
@@ -231,8 +225,9 @@ double** Allocate(const int rows, const int cols)
 }
 void Clear(double** matrix, const int rows)
 {
+
 	for (int i = 0; i < rows; i++)
-		delete[] matrix[i];
+			delete[] matrix[i];
 	delete[] matrix;
 }
 
