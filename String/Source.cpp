@@ -7,76 +7,88 @@ class Strings
 	char* str;
 public:
 //Геттеры
-	int get_size()const
-	{
-		return size;
-	}
-	const char* get_str()const
-	{
-		return str;
-	}
-	char* get_str()
-	{
-		return str;
-	}
+	int get_size()const;
+	const char* get_str()const;
+	char* get_str();
 //Конструкторы
-	explicit Strings(int size = 80) :size(size), str(new char[size]{}) //Универсальный конструктор для выделения памяти
-	{
-		//std::cout << "конструктор\t" << this << std::endl;
-	}
-	Strings(const char* str) :Strings(strlen(str) + 1)//Конструктор для ввода строки
-	{		
-		for (int i = 0; str[i]; i++) this->str[i] = str[i];
-		//std::cout << "конструктор\t" << this << std::endl;
-	}
-	Strings(const Strings& str) :Strings(str.str)//Конструктор копирования
-	{
-		//std::cout << "конструктор\t" << this << std::endl;
-	}
-	Strings(Strings&& str) :size(str.size), str(str.str) //Конструктор переноса
-	{
-		str.str = nullptr;
-		str.size = 0;
-		//std::cout << "конструктор\t" << this << std::endl;
-	}
+	explicit Strings(int size = 80);
+	Strings(const char* str);
+	Strings(const Strings& str);
+	Strings(Strings&& str);
 //Перегрузка операторов в классе
-	Strings& operator=(const Strings& str)
-	{
-		if(this == &str) return *this;
-		delete[] this->str;
-		this->size = strlen(str.str);
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++) this->str[i] = str.str[i];
-		//std::cout << "Присваивание\t" << this << std::endl;
-		return *this;
-	}
-	Strings& operator=(Strings&& str)
-	{
-		if (this == &str) return *this;
-		delete[] this->str;
-		this->str = str.str;
-		size = str.size;
-		str.str = nullptr;
-		str.size = 0;
-		//std::cout << "Присваивание\t" << this << std::endl;
-		return *this;
-	}
-
-	char& operator[](int i)
-	{
-		return str[i];
-	}
-	char operator[](int i)const
-	{
-		return str[i];
-	}
+	Strings& operator=(const Strings& str);
+	Strings& operator=(Strings&& str);
+	char& operator[](int i);
+	char operator[](int i)const;
 //Деструктор
-	~Strings()
-	{
-		delete[] str;
-		//std::cout << "Деструктор\t" << this <<std::endl;
-	}
+	~Strings();
 };
+
+int Strings::get_size()const
+{
+	return size;
+}
+const char* Strings::get_str()const
+{
+	return str;
+}
+char* Strings::get_str()
+{
+	return str;
+}
+Strings::Strings(int size) :size(size), str(new char[size] {}) //Универсальный конструктор для выделения памяти
+{
+	//std::cout << "конструктор\t" << this << std::endl;
+}
+Strings::Strings(const char* str) :Strings(strlen(str) + 1)//Конструктор для ввода строки
+{
+	for (int i = 0; str[i]; i++) this->str[i] = str[i];
+	//std::cout << "конструктор\t" << this << std::endl;
+}
+Strings::Strings(const Strings& str) :Strings(str.str)//Конструктор копирования
+{
+	//std::cout << "конструктор\t" << this << std::endl;
+}
+Strings::Strings(Strings&& str) :size(str.size), str(str.str) //Конструктор переноса
+{
+	str.str = nullptr;
+	str.size = 0;
+	//std::cout << "конструктор\t" << this << std::endl;
+}
+Strings& Strings::operator=(const Strings& str)
+{
+	if (this == &str) return *this;
+	delete[] this->str;
+	this->size = strlen(str.str);
+	this->str = new char[size] {};
+	for (int i = 0; i < size; i++) this->str[i] = str.str[i];
+	//std::cout << "Присваивание\t" << this << std::endl;
+	return *this;
+}
+Strings& Strings::operator=(Strings&& str)
+{
+	if (this == &str) return *this;
+	delete[] this->str;
+	this->str = str.str;
+	size = str.size;
+	str.str = nullptr;
+	str.size = 0;
+	//std::cout << "Присваивание\t" << this << std::endl;
+	return *this;
+}
+char Strings::operator[](int i)const
+{
+	return str[i];
+}
+char& Strings::operator[](int i)
+{
+	return str[i];
+}
+Strings::~Strings()
+{
+	delete[] str;
+	//std::cout << "Деструктор\t" << this <<std::endl;
+}
 
 //Перегрузка операторов
 Strings operator+(const Strings& left, const Strings& right)
@@ -126,7 +138,6 @@ std::istream& operator>>(std::istream& is, Strings& str)
 {
 	return is.getline(str.get_str(), str.get_size());	
 }
-
 
 void main()
 {
