@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<Strings.h>
 
 double** Allocate(const int rows, const int cols);
 void Clear(double** matrix, const int rows);
@@ -277,4 +278,7 @@ void main()
 	Matrix M6;
 	M6 = M1 / M2;
 	std::cout << "Деление матриц:" << std::endl << M6 << std::endl;
+	Strings::Strings str1 = "Hello";
+	Strings::Strings str2 = "World";
+	std::cout << str1 + " " + str2 << std::endl;
 }
